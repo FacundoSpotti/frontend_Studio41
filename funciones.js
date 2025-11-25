@@ -1,11 +1,11 @@
+const base_url = "https://backend-studio41.onrender.com";
 const { url } = require("inspector");
 
 function cargaDinamica(contenedor, contenido) {
 
     contenedor.innerHTML = contenido;
-}
 
-const base_url = "https://backend-studio41.onrender.com";
+}
 
 /*FUNCIONES ASINCRONICAS*/
 
