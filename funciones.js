@@ -5,11 +5,13 @@ function cargaDinamica(contenedor, contenido) {
     contenedor.innerHTML = contenido;
 }
 
+const base_url = "https://backend-studio41.onrender.com";
+
 /*FUNCIONES ASINCRONICAS*/
 
 async function crearPeticion(peticionData) {
     try {
-        const response = await fetch("http://localhost:3000/peticiones", {
+        const response = await fetch(base_url+"/peticiones", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +34,7 @@ async function crearPeticion(peticionData) {
 
 async function obtenerPeticiones() {
     try {
-        const response = await fetch("http://localhost:3000/peticiones");
+        const response = await fetch(base_url+"/peticiones");
         if (!response.ok) {
             throw new Error("Error al obtener peticiones: " + response.status);
         }
@@ -49,7 +51,7 @@ async function obtenerPeticiones() {
 
 async function cargarServicios() {
 
-    const res = await fetch("http://localhost:3000/servicios");
+    const res = await fetch(base_url+"/servicios");
     const servicios = await res.json();
 
     console.log("SERVICIOS:", servicios);
