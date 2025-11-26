@@ -8,6 +8,20 @@ function cargaDinamica(contenedor, contenido) {
 
 }
 
+/*OBTENER SERVICIOS*/
+
+async function cargarServicios() {
+
+    const res = await fetch(base_url+"/servicios");
+    const servicios = await res.json();
+
+    console.log("SERVICIOS:", servicios);
+    return servicios;
+}
+
+cargarServicios();
+
+
 /*FUNCIONES ASINCRONICAS*/
 
 async function crearPeticion(peticionData) {
@@ -141,7 +155,7 @@ function mostrarModalConfirmacion(peticion) {
     const overlay = document.getElementById("modalOverlay");
     const modalContenido = document.getElementById("modalContenido");
     const btnEditar = document.getElementById("btnEditar");
-    const btnConfirmar = document.getElementById("btnConfirmar");
+    const btnEliminar = document.getElementById("btnEliminar");
 
     modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
@@ -161,14 +175,17 @@ function mostrarModalConfirmacion(peticion) {
 
     // Guardamos el ID en localStorage (para editar luego)
     localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
+    
 
     // Limpio eventos previos
     btnEditar.replaceWith(btnEditar.cloneNode(true));
-    btnConfirmar.replaceWith(btnConfirmar.cloneNode(true));
+    btnEliminar.replaceWith(btnEliminar.cloneNode(true));
+
 
     // vuelvo a capturarlos ya clonados
     const newBtnEditar = document.getElementById("btnEditar");
-    const newBtnConfirmar = document.getElementById("btnConfirmar");
+    const newBtnEliminar = document.getElementById("btnEliminar");
+
 
     // EVENTO EDITAR
     newBtnEditar.addEventListener("click", () => {
@@ -176,11 +193,23 @@ function mostrarModalConfirmacion(peticion) {
         cargarDatosParaEdicion(peticion);
     });
 
-    // EVENTO CONFIRMAR
-    newBtnConfirmar.addEventListener("click", () => {
+    // EVENTO ELIMINAR
+    newBtnEliminar.addEventListener("click", async () => {
+    const id = peticion._id || peticion.id;
+
+    const eliminado = await eliminarPeticion(id);
+
+    if (eliminado) {
         cerrarModal();
-        alert("Solicitud confirmada correctamente");
-    });
+        alert("Solicitud eliminada correctamente");
+
+        formulario.querySelectorAll("input").forEach(i => (i.value = ""));
+
+        // Reset estado
+        localStorage.removeItem("ultimaPeticionId");
+        ultimaPeticion = null;
+    }
+});
 
 }
 
@@ -251,21 +280,25 @@ async function guardarEdicion(e) {
         formulario.addEventListener("submit", enviarFormulario);
     }
 }
+//////////////////////////////////////////ELIMINAR PETICION///////////////////////////////
 
+async function eliminarPeticion(id) {
+    try {
+        const response = await fetch(`${base_url}/peticiones/${id}`, {
+            method: "DELETE"
+        });
 
+        if (!response.ok) {
+            throw new Error("Error al eliminar petición: " + response.status);
+        }
 
+        console.log("Petición eliminada correctamente");
+        return true;
 
-/*OBTENER SERVICIOS*/
-
-async function cargarServicios() {
-
-    const res = await fetch(base_url+"/servicios");
-    const servicios = await res.json();
-
-    console.log("SERVICIOS:", servicios);
-    return servicios;
+    } catch (error) {
+        console.error("Error fetch:", error);
+        return false;
+    }
 }
 
-cargarServicios();
 
-/* hola */
