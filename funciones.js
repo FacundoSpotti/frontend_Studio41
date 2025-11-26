@@ -185,9 +185,14 @@ function mostrarModalConfirmacion(peticion) {
 }
 
 function cerrarModal() {
-    document.getElementById("modalConfirmacion").classList.remove("visible");
-    document.getElementById("modalOverlay").classList.remove("visible");
+    document.getElementById("modalConfirmacion").classList.remove("active");
+    document.getElementById("modalOverlay").classList.remove("active");
 }
+
+const btnCerrar = document.getElementById("btnCerrar");
+btnCerrar.addEventListener("click", cerrarModal);
+
+document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
 
 //////////////////////////////////////////EDITAR PETICION///////////////////////////////
 

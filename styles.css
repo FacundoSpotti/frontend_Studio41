@@ -410,6 +410,25 @@ main .hero {
   margin-top: 20px;
 }
 
+/* ----- Botón cerrar (X) ----- */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modal-close:hover {
+  color: #f97316;
+  transform: scale(1.2);
+}
+
+
 
 
 /* ================= FOOTER ================= */
