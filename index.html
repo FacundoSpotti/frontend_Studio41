@@ -100,7 +100,7 @@
                     <input type="number" id="presupuesto" name="presupuesto"/>
                 </div>
 
-                <button type="submit" class="btn btn--primary">Enviar</button>
+                <button type="submit" class="btn btn--primary" id="btnEnviar">Enviar</button>
             </form>
         </div>
 
@@ -121,6 +121,17 @@
 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+        <div id="modalConfirmacion" class="modal">
+          <h2>Tu solicitud</h2>
+          <div id="modalContenido" class="modal-content"></div>
+
+          <div class="modal-buttons">
+            <button id="btnEditar" class="btn btn--ghost">Editar</button>
+            <button id="btnConfirmar" class="btn btn--primary">Confirmar</button>
+          </div>
+      </div>
 
     </main>
 
@@ -132,7 +143,6 @@
     </footer>
 
     <script src="datos.js"></script>
-
     <script src="funciones.js"></script>
     <script src="codigo.js"></script>
 

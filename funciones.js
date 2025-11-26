@@ -1,4 +1,12 @@
+console.log("JS funcionando")
+
 const base_url = "https://backend-studio41.onrender.com";
+
+function cargaDinamica(contenedor, contenido) {
+
+    contenedor.innerHTML = contenido;
+
+}
 
 /*FUNCIONES ASINCRONICAS*/
 
@@ -148,8 +156,8 @@ function mostrarModalConfirmacion(peticion) {
         </ul>
     `;
 
-    modal.classList.add("visible");
-    overlay.classList.add("visible");
+    modal.classList.add("active");
+    overlay.classList.add("active");
 
     // Guardamos el ID en localStorage (para editar luego)
     localStorage.setItem("ultimaPeticionId", peticion.id);
