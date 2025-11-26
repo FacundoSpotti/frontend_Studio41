@@ -112,7 +112,7 @@ async function enviarFormulario(e) {
 
 async function actualizarPeticion(id, peticionData) {
     try {
-        const response = await fetch(`${base_url}/peticiones/${id}`, {
+        const response = await fetch(`${base_url}/peticiones/:${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
