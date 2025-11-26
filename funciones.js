@@ -112,7 +112,7 @@ async function enviarFormulario(e) {
 
 async function actualizarPeticion(id, peticionData) {
     try {
-        const response = await fetch(`${base_url}/peticiones/:${id}`, {
+        const response = await fetch(`${base_url}/peticiones/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -160,7 +160,7 @@ function mostrarModalConfirmacion(peticion) {
     overlay.classList.add("active");
 
     // Guardamos el ID en localStorage (para editar luego)
-    localStorage.setItem("ultimaPeticionId", peticion.id);
+    localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
 
     // Limpio eventos previos
     btnEditar.replaceWith(btnEditar.cloneNode(true));
@@ -233,7 +233,7 @@ async function guardarEdicion(e) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
-    
+
     const id = localStorage.getItem("ultimaPeticionId");
 
     const resultado = await actualizarPeticion(id, nuevaData);
