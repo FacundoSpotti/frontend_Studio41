@@ -354,6 +354,64 @@ main .hero {
   margin: auto;
 }
 
+/* ================= MODAL PETICION ================= */
+
+/* ===== MODAL ===== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(.8);
+  width: 350px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease;
+  z-index: 1100;
+  color: white;
+}
+
+.modal.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-content {
+  margin-top: 15px;
+  opacity: .9;
+  line-height: 1.4;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
+
 /* ================= FOOTER ================= */
 
 .footer {

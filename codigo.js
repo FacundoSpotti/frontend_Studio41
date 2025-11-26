@@ -138,10 +138,26 @@ const contenidoIntegrantes = `
             </div>`;
 const contenedorIntegrantes = document.querySelector('#nosotros');
 
+const contenidoModal = `
+  <div id="modalOverlay" class="modal-overlay"></div>
+
+  <div id="modalConfirmacion" class="modal">
+    <h2>Tu solicitud</h2>
+    <div id="modalContenido" class="modal-content"></div>
+
+    <div class="modal-buttons">
+      <button id="btnEditar" class="btn btn--ghost">Editar</button>
+      <button id="btnConfirmar" class="btn btn--primary">Confirmar</button>
+    </div>
+  </div>`;
+
+const contenedorModal = document.querySelector('#modal');
+
 /*EJECUCIONES*/
 
 cargaDinamica(contenedorPortfolio, contenidoPortfolio);
 cargaDinamica(contenedorIntegrantes, contenidoIntegrantes);
+cargaDinamica(contenedorModal, contenidoModal);
 cargarServicios();
 
 /*CREAR PETICION*/

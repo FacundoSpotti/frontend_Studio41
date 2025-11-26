@@ -60,6 +60,29 @@ async function cargarServicios() {
 
 cargarServicios();
 
+async function actualizarPeticion(id, peticionData) {
+    try {
+        const response = await fetch(`${base_url}/peticiones/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(peticionData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al actualizar petición: " + response.status);
+        }
+
+        const peticionActualizada = await response.json();
+        console.log("Petición actualizada:", peticionActualizada);
+        return peticionActualizada;
+
+    } catch (error) {
+        console.error("Error fetch:", error);
+    }
+}
+
 
 
 
