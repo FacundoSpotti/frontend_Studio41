@@ -233,24 +233,25 @@ async function guardarEdicion(e) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
+    
+    const id = localStorage.getItem("ultimaPeticionId");
 
-    const resultado = await actualizarPeticion(ultimaPeticion.id, nuevaData);
+    const resultado = await actualizarPeticion(id, nuevaData);
 
     if (resultado) {
         alert("Datos actualizados correctamente ✔️");
 
-        // limpiar inputs
         formulario.querySelectorAll("input").forEach(i => (i.value = ""));
 
-        // restaurar botón a estado original
         const btnSubmit = formulario.querySelector("button[type='submit']");
         btnSubmit.textContent = "Enviar";
 
-        // restaurar comportamiento original (POST)
+        // restaurar comportamiento original
         formulario.removeEventListener("submit", guardarEdicion);
         formulario.addEventListener("submit", enviarFormulario);
     }
 }
+
 
 
 
