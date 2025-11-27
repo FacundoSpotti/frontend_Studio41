@@ -6,7 +6,7 @@ const proyectos = [
         type: "Exhibition / Graphics & Audiovisual Content",
         description: "For this exhibition, Studio 41 designed all the graphic elements and created audiovisual content to accompany the show. The entire Studio 41 team collaborated in this project.",
         team: ["Studio 41 (entire team)"],
-        image: "",
+        image: "img/proyectos/migues.jpg",
         additionalInfo: {
             client: "Jorge Migues",
             role: "Graphic design & audiovisual",
@@ -33,7 +33,7 @@ const proyectos = [
         type: "Music Video",
         description: "Directed and produced by Facundo Spotti, this music video was created for the song “Superstitious” by KMIKZE.",
         team: ["Facundo Spotti"],
-        image: "",
+        image: "img/proyectos/kmikze.jpg",
         additionalInfo: {
         artist: "KMIKZE",
         role: "Director & Producer"
@@ -46,7 +46,7 @@ const proyectos = [
         type: "Photography",
         description: "A curated collection of photographs taken around Uruguay, capturing landscapes, urban scenes, and cultural moments. Shot by Facundo Spotti.",
         team: ["Facundo Spotti"],
-        image: "",
+        image: "img/proyectos/fotografia.jpg",
         additionalInfo: {
         role: "Photographer",
         medium: "Digital Photography"
