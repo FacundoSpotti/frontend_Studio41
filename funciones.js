@@ -92,6 +92,7 @@ async function enviarFormulario(e) {
         mail: emailInput.value.trim(),
         ubicacion: ubicacionInput.value.trim(),
         presupuesto: presupuestoValor,
+        comentarios: comentariosTextArea.value.trim(),
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
@@ -108,6 +109,8 @@ async function enviarFormulario(e) {
 
         // limpia inputs
         formulario.querySelectorAll("input").forEach(input => (input.value = ""));
+        comentariosTextArea.value = "";
+
     }
 }
 
@@ -151,6 +154,7 @@ function mostrarModalConfirmacion(peticion) {
         <p><strong>Email:</strong> ${peticion.mail}</p>
         <p><strong>Dirección:</strong> ${peticion.ubicacion}</p>
         <p><strong>Presupuesto:</strong> USD ${peticion.presupuesto}</p>
+        <p><strong>Comentarios:</strong> ${peticion.comentarios || peticion.comentario || "Sin comentario"}</p>
         <p><strong>Servicios:</strong></p>
         <ul>
         ${peticion.servicios.length 
@@ -214,8 +218,9 @@ function cargarDatosParaEdicion(peticion) {
     // Rellenar campos
     nombreInput.value = peticion.nombre;
     emailInput.value = peticion.email;
-    direccionInput.value = peticion.direccion;
+    ubicacionInput.value = peticion.ubicacion;
     presupuestoInput.value = peticion.presupuesto;
+    comentariosTextArea.value = peticion.comentarios || peticion.comentario || "No tiene";
 
     // Guardar ID en variable global
     ultimaPeticion = peticion;
@@ -237,12 +242,12 @@ async function guardarEdicion(e) {
     const nuevaData = {
         nombre: nombreInput.value.trim(),
         email: emailInput.value.trim(),
-        direccion: direccionInput.value.trim(),
+        ubicacion: ubicacionInput.value.trim(),
         presupuesto: Number(presupuestoInput.value),
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
-    if (!nuevaData.nombre || !nuevaData.email || !nuevaData.direccion || nuevaData.presupuesto <= 0) {
+    if (!nuevaData.nombre || !nuevaData.email || !nuevaData.ubicacion || nuevaData.presupuesto <= 0) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
@@ -279,13 +284,14 @@ async function cargarServicios() {
     return servicios;
 }
 
-/*BOTONES*/
+/*BOTONES o BUTTONS*/
 
 const btnCerrar = document.getElementById("btnCerrar");
 const formulario = document.querySelector("form");
 const nombreInput = document.getElementById("nombre");
 const emailInput = document.getElementById("email");
-const direccionInput = document.getElementById("direccion");
+const ubicacionInput = document.getElementById("ubicacion");
+const comentariosTextArea = document.getElementById("comentarios");
 const presupuestoInput = document.getElementById("presupuesto");
 
 /*eventos*/ 
