@@ -84,8 +84,10 @@ async function guardarPeticion(data) {
 const formulario = document.querySelector("form");
 const nombreInput = document.getElementById("nombre");
 const emailInput = document.getElementById("email");
-const direccionInput = document.getElementById("direccion");
+const ubicacionInput = document.getElementById("direccion");
 const presupuestoInput = document.getElementById("presupuesto");
+const comentariosInput = document.getElementById("comentarios");
+
 
 // Estado global temporal
 let ultimaPeticion = null;
@@ -99,13 +101,13 @@ async function enviarFormulario(e) {
 
     const peticionData = {
         nombre: nombreInput.value.trim(),
-        email: emailInput.value.trim(),
-        direccion: direccionInput.value.trim(),
+        mail: emailInput.value.trim(),
+        ubicacion: ubicacionInput.value.trim(),
         presupuesto: presupuestoValor,
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
-    if (!peticionData.nombre || !peticionData.email || !peticionData.direccion || presupuestoValor <= 0) {
+    if (!peticionData.nombre || !peticionData.mail || !peticionData.ubicacion || presupuestoValor <= 0) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
@@ -159,8 +161,8 @@ function mostrarModalConfirmacion(peticion) {
 
     modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
-        <p><strong>Email:</strong> ${peticion.email}</p>
-        <p><strong>Dirección:</strong> ${peticion.direccion}</p>
+        <p><strong>Email:</strong> ${peticion.mail}</p>
+        <p><strong>Dirección:</strong> ${peticion.ubicacion}</p>
         <p><strong>Presupuesto:</strong> USD ${peticion.presupuesto}</p>
         <p><strong>Servicios:</strong></p>
         <ul>
@@ -278,6 +280,9 @@ async function guardarEdicion(e) {
         // restaurar comportamiento original
         formulario.removeEventListener("submit", guardarEdicion);
         formulario.addEventListener("submit", enviarFormulario);
+
+        console.log(resultado);
+
     }
 }
 //////////////////////////////////////////ELIMINAR PETICION///////////////////////////////
