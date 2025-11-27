@@ -11,7 +11,6 @@ async function mostrarServicios() {
     try {
 
     const contenedorServicios = document.querySelector('#servicios');
-
     const servicios = await cargarServicios();
 
     let cadaServicio = '';
@@ -52,56 +51,51 @@ async function mostrarServicios() {
 
     cargaDinamica(contenedorServicios, contenidoServicios);
 
-    let contador = 0;
-    const num_carrito = document.querySelector('.num_carrito');
+    let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
+
     const cajas = document.querySelectorAll('.desactivado');
-    let carrito = [];
+    const num_carrito = document.querySelector('.num_carrito');
+
+    num_carrito.innerHTML = carrito.length;
+   
 
     cajas.forEach(caja => {
-
-        caja.addEventListener("click", function() {
-
-            let id = this.id;
-
-            if(this.classList.contains("activado")) {
-
-                this.classList.remove("activado");
-                this.classList.add("desactivado");
-                contador--;
-                num_carrito.innerHTML = contador;
-
-                carrito = carrito.filter(serv => serv !== servicios[id-1].id);
-
-                console.log(carrito);
-                return;
-
-            } else{
-            
-                
-                carrito.push(servicios[id-1].id);
-                contador++;
-                num_carrito.innerHTML = contador;
-
-                this.classList.remove("desactivado");
-                this.classList.add("activado");
-
-                console.log(carrito);
-
-            }
-
-            return carrito
-
-
-        });
-
+        if (carrito.includes(caja.id)) {
+            caja.classList.add("activado");
+            caja.classList.remove("desactivado");
+        }
     });
 
-}
-    
-    catch (error) {
+        cajas.forEach(caja => {
+            caja.addEventListener("click", function () {
 
+                const id = this.id;
+
+                if (carrito.includes(id)) {
+
+                    // Quitar
+                    carrito = carrito.filter(serv => serv !== id);
+                    this.classList.remove("activado");
+                    this.classList.add("desactivado");
+
+                } else {
+
+                    // Agregar
+                    carrito.push(id);
+                    this.classList.remove("desactivado");
+                    this.classList.add("activado");
+                }
+
+                // Guardar cambios
+                localStorage.setItem("carritoServicios", JSON.stringify(carrito));
+
+                num_carrito.textContent = carrito.length;
+                console.log("Carrito actualizado:", carrito);
+            });
+        });
+
+    } catch (error) {
         console.error("Error al mostrar servicios:", error);
-
     }
 }
 
