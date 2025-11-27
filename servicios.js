@@ -1,21 +1,19 @@
 const btn_solicitar = document.querySelector('.solicitud');
 
-let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
-
 btn_solicitar.addEventListener('click', () => {
 
-    localStorage.setItem("carritoServicios", JSON.stringify(carrito));
     window.location.href = "confirmación.html";
 
 });
 
 async function mostrarServicios() { 
-   
-    try {
-        const contenedorServicios = document.querySelector('#servicios');
-        const servicios = await cargarServicios();
 
-        let cadaServicio = '';
+    try {
+
+    const contenedorServicios = document.querySelector('#servicios');
+    const servicios = await cargarServicios();
+
+    let cadaServicio = '';
 
     servicios.forEach(servicio => {
 
@@ -54,33 +52,52 @@ async function mostrarServicios() {
                     
         });
 
-        cargaDinamica(contenedorServicios, `<div class="project-grid">${cadaServicio}</div>`);
+    const contenidoServicios = `
 
-        const cajas = document.querySelectorAll('.project');
-        const num_carrito = document.querySelector('.num_carrito');
+            <div class="project-grid">
 
-        num_carrito.innerHTML = carrito.length;
+                ${cadaServicio}
 
-        cajas.forEach(caja => {
-            if (carrito.includes(caja.id)) {
-                caja.classList.add("activado");
-                caja.classList.remove("desactivado");
-            }
-        });
+            </div>`;
+
+    cargaDinamica(contenedorServicios, contenidoServicios);
+
+    let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
+
+    const cajas = document.querySelectorAll('.desactivado');
+    const num_carrito = document.querySelector('.num_carrito');
+
+    num_carrito.innerHTML = carrito.length;
+
+    cajas.forEach(caja => {
+        if (carrito.includes(caja.id)) {
+            caja.classList.add("activado");
+            caja.classList.remove("desactivado");
+        }
+    });
 
         cajas.forEach(caja => {
             caja.addEventListener("click", function () {
+
                 const id = this.id;
 
                 if (carrito.includes(id)) {
-                    carrito = carrito.filter(item => item !== id);
+
+                    // Quitar
+                    carrito = carrito.filter(serv => serv !== id);
                     this.classList.remove("activado");
                     this.classList.add("desactivado");
+
                 } else {
+
+                    // Agregar
                     carrito.push(id);
                     this.classList.remove("desactivado");
                     this.classList.add("activado");
                 }
+
+                // Guardar cambios
+                localStorage.setItem("carritoServicios", JSON.stringify(carrito));
 
                 num_carrito.textContent = carrito.length;
                 console.log("Carrito actualizado:", carrito);
