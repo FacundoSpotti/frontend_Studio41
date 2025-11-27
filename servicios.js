@@ -81,6 +81,8 @@ async function mostrarServicios() {
 
             }
 
+            return carrito
+
 
         });
 
@@ -96,5 +98,3 @@ async function mostrarServicios() {
 }
 
 mostrarServicios();
-
-//////////////////////////////////GUARDAR SERVICIOS ESCOGIDOS///////////////////////////////
