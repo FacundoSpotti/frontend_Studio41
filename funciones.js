@@ -1,5 +1,23 @@
 console.log("JS funcionando")
 
+/* BOTONES e INPUTS */
+const btnCerrar = document.getElementById("btnCerrar");
+const btnCrear = document.getElementById("btnCrear");
+const btnActualizar = document.getElementById("btnActualizar");
+const btnEditar = document.getElementById("btnEditar");
+const btnEliminar = document.getElementById("btnEliminar");
+const modalOverlay = document.getElementById("modalOverlay");
+
+const formulario = document.querySelector("form");
+const nombreInput = document.getElementById("nombre");
+const emailInput = document.getElementById("email");
+const ubicacionInput = document.getElementById("ubicacion");
+const comentarioTextArea = document.getElementById("comentario");
+const presupuestoInput = document.getElementById("presupuesto");
+
+
+
+
 const base_url = "https://backend-studio41.onrender.com";
 
 function cargaDinamica(contenedor, contenido) {
@@ -162,41 +180,6 @@ function mostrarModalConfirmacion(peticion) {
 
     // Guardamos el ID en localStorage (para editar luego)
     localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
-    
-
-    // Limpio eventos previos
-    btnEditar.replaceWith(btnEditar.cloneNode(true));
-    btnEliminar.replaceWith(btnEliminar.cloneNode(true));
-
-
-    // vuelvo a capturarlos ya clonados
-    const newBtnEditar = document.getElementById("btnEditar");
-    const newBtnEliminar = document.getElementById("btnEliminar");
-
-
-    // EVENTO EDITAR
-    newBtnEditar.addEventListener("click", () => {
-        cerrarModal();
-        cargarDatosParaEdicion(peticion);
-    });
-
-    // EVENTO ELIMINAR
-    newBtnEliminar.addEventListener("click", async () => {
-    const id = peticion._id || peticion.id;
-
-    const eliminado = await eliminarPeticion(id);
-
-    if (eliminado) {
-        cerrarModal();
-        alert("Solicitud eliminada correctamente");
-
-        formulario.querySelectorAll("input").forEach(i => (i.value = ""));
-
-        // Reset estado
-        localStorage.removeItem("ultimaPeticionId");
-        ultimaPeticion = null;
-    }
-});
 
 }
 
@@ -209,87 +192,71 @@ function cerrarModal() {
 
 function cargarDatosParaEdicion(peticion) {
 
-    // Rellenar campos
     nombreInput.value = peticion.nombre;
     emailInput.value = peticion.email;
     ubicacionInput.value = peticion.ubicacion;
     presupuestoInput.value = peticion.presupuesto;
-    comentarioTextArea.value = peticion.comentario || "No tiene";
+    comentarioTextArea.value = peticion.comentario || "";
 
-    // Guardar ID en variable global
     ultimaPeticion = peticion;
 
-    // Cambiar el texto del botón
-    const btnSubmit = formulario.querySelector("button[type='submit']");
-    btnSubmit.textContent = "Guardar cambios";
+    btnCrear.style.display = "none";
+    btnActualizar.style.display = "inline-block";
 
-    // Eliminar event listener previo del formulario para evitar doble guardado
-    formulario.removeEventListener("submit", enviarFormulario);
-
-    // Agregar nuevo listener solo para actualizar
-    formulario.addEventListener("submit", guardarEdicion);
+    cerrarModal();
 }
 
-async function guardarEdicion(e) {
-    e.preventDefault();
+async function guardarEdicion() {
+
+    const id = localStorage.getItem("ultimaPeticionId");
 
     const nuevaData = {
         nombre: nombreInput.value.trim(),
         email: emailInput.value.trim(),
         ubicacion: ubicacionInput.value.trim(),
         presupuesto: Number(presupuestoInput.value),
+        comentario: comentarioTextArea.value.trim(),
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
-    if (!nuevaData.nombre || !nuevaData.email || !nuevaData.ubicacion || nuevaData.presupuesto <= 0) {
-        alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
-        return;
-    }
+    const result = await actualizarPeticion(id, nuevaData);
 
+    if(result) {
+        alert("Cambios guardados");
+
+        formulario.reset();
+
+        // Volver estado botones
+        btnCrear.style.display = "inline-block";
+        btnActualizar.style.display = "none";
+
+        ultimaPeticion = null;
+        localStorage.removeItem("ultimaPeticionId");
+    }
+}
+
+async function eliminarPeticionConfirmada() {
     const id = localStorage.getItem("ultimaPeticionId");
 
-    const resultado = await actualizarPeticion(id, nuevaData);
+    await eliminarPeticion(id);
 
-    if (resultado) {
-        alert("Datos actualizados correctamente ✔️");
+    alert("Solicitud eliminada");
 
-        formulario.querySelectorAll("input").forEach(i => (i.value = ""));
+    formulario.reset();
+    ultimaPeticion = null;
+    localStorage.removeItem("ultimaPeticionId");
 
-        const btnSubmit = formulario.querySelector("button[type='submit']");
-        btnSubmit.textContent = "Enviar";
-
-        // restaurar comportamiento original
-        formulario.removeEventListener("submit", guardarEdicion);
-        formulario.addEventListener("submit", enviarFormulario);
-
-        console.log(resultado);
-
-    }
+    cerrarModal();
+    
+    // Restaurar botones
+    btnCrear.style.display = "inline-block";
+    btnActualizar.style.display = "none";
 }
 
-/*OBTENER SERVICIOS*/
-
-async function cargarServicios() {
-
-    const res = await fetch(base_url+"/servicios");
-    const servicios = await res.json();
-
-    console.log("SERVICIOS:", servicios);
-    return servicios;
-}
-
-/*BOTONES o BUTTONS*/
-
-const btnCerrar = document.getElementById("btnCerrar");
-const formulario = document.querySelector("form");
-const nombreInput = document.getElementById("nombre");
-const emailInput = document.getElementById("email");
-const ubicacionInput = document.getElementById("ubicacion");
-const comentarioTextArea = document.getElementById("comentario");
-const presupuestoInput = document.getElementById("presupuesto");
-
-/*eventos*/ 
-
+/* EVENTOS (se agregan solo una vez) */
 formulario.addEventListener("submit", enviarFormulario);
+btnActualizar.addEventListener("click", guardarEdicion);
+btnEditar.addEventListener("click", () => cargarDatosParaEdicion(ultimaPeticion));
+btnEliminar.addEventListener("click", eliminarPeticionConfirmada);
 btnCerrar.addEventListener("click", cerrarModal);
-document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
+modalOverlay.addEventListener("click", cerrarModal);
