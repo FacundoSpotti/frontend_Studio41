@@ -10,11 +10,9 @@ async function mostrarServicios() {
 
     servicios.forEach(servicio => {
 
-        console.log("SERVICIO:", servicio);
-
         cadaServicio +=
         
-                `<article class="project project--small desactivado">
+                `<article id=${servicio.id} class="project project--small desactivado">
                         <div class="project_img ${servicio.id}">
                         
                         <style>
@@ -44,7 +42,51 @@ async function mostrarServicios() {
 
             </div>`;
 
-    cargaDinamica(contenedorServicios, contenidoServicios);} 
+    cargaDinamica(contenedorServicios, contenidoServicios);
+
+    let contador = 0;
+    const num_carrito = document.querySelector('.num_carrito');
+    const cajas = document.querySelectorAll('.desactivado');
+    let carrito = [];
+
+    cajas.forEach(caja => {
+
+        caja.addEventListener("click", function() {
+
+            let id = this.id;
+
+            if(this.classList.contains("activado")) {
+
+                this.classList.remove("activado");
+                this.classList.add("desactivado");
+                contador--;
+                num_carrito.innerHTML = contador;
+
+                carrito = carrito.filter(serv => serv !== servicios[id-1].id);
+
+                console.log(carrito);
+                return;
+
+            } else{
+            
+                
+                carrito.push(servicios[id-1].id);
+                contador++;
+                num_carrito.innerHTML = contador;
+
+                this.classList.remove("desactivado");
+                this.classList.add("activado");
+
+                console.log(carrito);
+
+            }
+
+
+        });
+
+    });
+
+}
     
     catch (error) {
 
@@ -54,3 +96,5 @@ async function mostrarServicios() {
 }
 
 mostrarServicios();
+
+//////////////////////////////////GUARDAR SERVICIOS ESCOGIDOS///////////////////////////////
