@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Studio 41 — Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=local_mall" />
+
+
+  </head>
+  <body>
+
+    <header class="header">
+        <div class="logo_header">
+        <a href="index.html">
+          Studio 41
+        </a>
+        </div>
+
+        <nav class="nav">
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <a href="#carrito" class="btn_carrito"><div><span class="num_carrito">0</span></div><span class="material-symbols-outlined">local_mall</span></a>
+    </header>
+
+    <div class="background">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="noise"></div>
+    </div>
+
+    <main>
+
+      <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+      <section id="modal">
+
+         <div class="container contact">
+          <div class="contact_form">
+            <h2 class="section_title">Confrmá tu compra</h2>
+            <form>
+
+              <section id="servicios">
+
+                 <!--CARGA DINAMICA DE LOS SERVICIOS-->
+
+              </section>
+
+
+
+                <div class="field">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre"/>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"/>
+                </div>
+
+                <div class="field">
+                    <label for="ubicacion">Dirección:</label>
+                    <input type="text" id="ubicacion" name="ubicacion"/>
+                </div>
+
+                <div class="field">
+                    <label for="presupuesto">Presupuesto (USD):</label>
+                    <input type="number" id="presupuesto" name="presupuesto"/>
+                </div>
+
+                <div class="field">
+                  <label for="comentario">Comentario:</label>
+                  <textarea id="comentario" name="comentario" rows="4" placeholder="Escribe aquí tu mensaje..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn--primary" id="btnEnviar">Enviar</button>
+            </form>        
+          </div>
+        </div>
+
+        <!--CARGA DE LA MODAL POR CODIGO-->
+
+      </section>
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+      <div id="modalConfirmacion" class="modal">
+
+          <!-- BOTÓN CERRAR -->
+          <button id="btnCerrar" class="modal-close">✕</button>
+
+          <h2>Tu solicitud</h2>
+
+          <div id="modalContenido" class="modal-content"></div>
+
+          <div class="modal-buttons">
+              <button id="btnEditar" class="btn btn--ghost">Editar</button>
+              <button id="btnEliminar" class="btn btn--primary">Eliminar</button>
+          </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer_inner">
+        <span>Studio 41</span>
+        <span>© 2025</span>
+      </div>
+    </footer>
+
+    <script src="datos.js"></script>
+    <script src="funciones.js"></script>
+    <script src="servicios.js"></script>
+
+  </body>
+</html>
