@@ -14,7 +14,7 @@ async function mostrarServicios() {
 
         cadaServicio +=
         
-                `<article class="project project--small">
+                `<article class="project project--small desactivado">
                         <div class="project_img ${servicio.id}">
                         
                         <style>
@@ -28,7 +28,8 @@ async function mostrarServicios() {
                         <div class="project_info project_info--small">
                             <span class="project_label">${servicio.plan}</span>
                             <span class="project_label">${servicio.titulo}</span>
-                            <span class="project_label">${servicio.precio}</span>
+                            <span class="project_label">${servicio.precio}${servicio.moneda}</span>
+                            <p>${servicio.descripcion}</p>
                         </div>
 
                 </article>`

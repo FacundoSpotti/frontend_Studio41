@@ -106,6 +106,43 @@ body {
   z-index: 100;
 }
 
+.btn_carrito{
+
+  position: relative;
+
+  div{
+
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 1rem;
+    position: absolute;
+    left: 0.7rem;
+    bottom: 0;
+    padding: 0;
+
+    span{
+
+      height: 100%;
+      font-size: 0.8rem;
+      font-weight: 900;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+  }
+
+}
+
+.material-symbols-outlined{
+
+  color:  white;
+
+}
+
 .logo_header {
   font-size: 22px;
   font-weight: bold;
@@ -233,6 +270,12 @@ main .hero {
   justify-content: space-between;
   padding: 15px 20px;
   font-size: 14px;
+
+  p{
+
+    display: none;
+
+  }
 }
 
 .project--highlight .project_img {
@@ -256,6 +299,28 @@ main .hero {
 
 .project--wide .project_img {
   height: 200px;
+}
+
+/*ANIMACIÓN*/
+
+.desactivado{
+
+    outline: 0;
+    border: 0.1rem solid #f9741600;
+
+}
+
+.project--small:hover{
+
+  border: 0.1rem solid #f97316;
+  transition: ease-in-out 100ms;
+
+}
+
+.activado{
+
+  border: 0.1rem solid #f97316;
+
 }
 
 /* ================= EQUIPO ================= */
@@ -312,6 +377,12 @@ main .hero {
 }
 
 /* ================= CONTACTO ================= */
+
+.invisible{
+
+  display: none;
+
+}
 
 .contact {
   display: flex;
