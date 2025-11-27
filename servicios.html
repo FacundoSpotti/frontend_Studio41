@@ -5,6 +5,7 @@
     <title>Studio 41 — Landing Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=local_mall" />
 
 
   </head>
@@ -24,7 +25,7 @@
             <a href="#contacto">Contacto</a>
         </nav>
 
-        <a href="#contacto" class="btnContacto">Contactanos</a>
+        <a href="#carrito" class="btn_carrito"><div><span class="num_carrito">0</span></div><span class="material-symbols-outlined">local_mall</span></a>
 
     </header>
 
@@ -44,15 +45,15 @@
             </div>
         </div>
 
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <section id="servicios">
 
-      <section id="contacto" class="section section--contact">
+          <!--CARGA DINAMICA DE LOS SERVICIOS-->
 
-      </section>
+        </section>
 
       <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-      <section id="modal" class="">
+      <section id="modal" class="invisible">
 
          <div class="container contact">
           <div class="contact_form">
@@ -125,7 +126,7 @@
 
     <script src="datos.js"></script>
     <script src="funciones.js"></script>
-    <script src="codigo.js"></script>
+    <script src="servicios.js"></script>
 
   </body>
 </html>
