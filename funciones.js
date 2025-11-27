@@ -89,14 +89,14 @@ async function enviarFormulario(e) {
 
     const peticionData = {
         nombre: nombreInput.value.trim(),
-        mail: emailInput.value.trim(),
+        email: emailInput.value.trim(),
         ubicacion: ubicacionInput.value.trim(),
         presupuesto: presupuestoValor,
-        comentarios: comentariosTextArea.value.trim(),
+        comentario: comentarioTextArea.value.trim(),
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
-    if (!peticionData.nombre || !peticionData.mail || !peticionData.ubicacion || presupuestoValor <= 0) {
+    if (!peticionData.nombre || !peticionData.email || !peticionData.ubicacion || presupuestoValor <= 0) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
@@ -109,7 +109,7 @@ async function enviarFormulario(e) {
 
         // limpia inputs
         formulario.querySelectorAll("input").forEach(input => (input.value = ""));
-        comentariosTextArea.value = "";
+        comentarioTextArea.value = "";
 
     }
 }
@@ -151,16 +151,10 @@ function mostrarModalConfirmacion(peticion) {
 
     modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
-        <p><strong>Email:</strong> ${peticion.mail}</p>
+        <p><strong>eMail:</strong> ${peticion.email}</p>
         <p><strong>Dirección:</strong> ${peticion.ubicacion}</p>
         <p><strong>Presupuesto:</strong> USD ${peticion.presupuesto}</p>
-        <p><strong>Comentarios:</strong> ${peticion.comentarios || peticion.comentario || "Sin comentario"}</p>
-        <p><strong>Servicios:</strong></p>
-        <ul>
-        ${peticion.servicios.length 
-            ? peticion.servicios.map(s=> `<li>${s.plan} — ${s.categoria} (${s.precio} USD)</li>`).join("") 
-            : "<li>No se seleccionaron servicios.</li>"}
-        </ul>
+        <p><strong>Comentario:</strong> ${peticion.comentario || "Sin comentario"}</p>
     `;
 
     modal.classList.add("active");
@@ -220,7 +214,7 @@ function cargarDatosParaEdicion(peticion) {
     emailInput.value = peticion.email;
     ubicacionInput.value = peticion.ubicacion;
     presupuestoInput.value = peticion.presupuesto;
-    comentariosTextArea.value = peticion.comentarios || peticion.comentario || "No tiene";
+    comentarioTextArea.value = peticion.comentario || "No tiene";
 
     // Guardar ID en variable global
     ultimaPeticion = peticion;
@@ -291,7 +285,7 @@ const formulario = document.querySelector("form");
 const nombreInput = document.getElementById("nombre");
 const emailInput = document.getElementById("email");
 const ubicacionInput = document.getElementById("ubicacion");
-const comentariosTextArea = document.getElementById("comentarios");
+const comentarioTextArea = document.getElementById("comentario");
 const presupuestoInput = document.getElementById("presupuesto");
 
 /*eventos*/ 
