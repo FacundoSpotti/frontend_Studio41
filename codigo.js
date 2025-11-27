@@ -1,6 +1,6 @@
 /*CONTENEDOR*/
 
-const contenedorPortfolio = document.querySelector('#servicios');
+const contenedorPortfolio = document.querySelector('#portfolio');
 const contenedorModal = document.querySelector('#contacto');
 const contenedorIntegrantes = document.querySelector('#nosotros');
 
@@ -180,5 +180,4 @@ const contenidoFormulario = `
 cargaDinamica(contenedorPortfolio, contenidoPortfolio);
 cargaDinamica(contenedorIntegrantes, contenidoIntegrantes);
 cargaDinamica(contenedorModal, contenidoModal);
-cargarServicios();
 cargaDinamica(contenedorModal, contenidoFormulario);
