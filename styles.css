@@ -106,6 +106,14 @@ body {
   z-index: 100;
 }
 
+.solicitud{
+
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+
+}
+
 .btn_carrito{
 
   position: relative;

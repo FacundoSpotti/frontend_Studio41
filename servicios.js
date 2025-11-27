@@ -1,3 +1,11 @@
+const btn_solicitar = document.querySelector('.solicitud');
+
+btn_solicitar.addEventListener('click', () => {
+
+    window.location.href = "confirmación.html";
+
+});
+
 async function mostrarServicios() { 
 
     try {
