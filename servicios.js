@@ -57,7 +57,6 @@ async function mostrarServicios() {
     const num_carrito = document.querySelector('.num_carrito');
 
     num_carrito.innerHTML = carrito.length;
-   
 
     cajas.forEach(caja => {
         if (carrito.includes(caja.id)) {
@@ -91,6 +90,7 @@ async function mostrarServicios() {
 
                 num_carrito.textContent = carrito.length;
                 console.log("Carrito actualizado:", carrito);
+                
             });
         });
 

@@ -104,13 +104,14 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+
 }
 
 .solicitud{
 
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 5rem;
+  right: 5rem;
 
 }
 
@@ -152,8 +153,14 @@ body {
 }
 
 .logo_header {
-  font-size: 22px;
-  font-weight: bold;
+
+    a{
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+
 }
 
 .nav {
@@ -172,7 +179,7 @@ body {
 }
 
 .btnContacto {
-  padding: 10px 16px;
+  padding: 1rem 2rem;
   border-radius: 25px;
   border: 1px solid rgba(255,255,255,0.4);
   background: rgba(255,255,255,0.1);
@@ -431,6 +438,14 @@ main .hero {
   width: 200px;
   display: block;
   margin: auto;
+}
+
+/* ===== SERVICIOS ===== */
+
+#servicios{
+
+  padding: 0 5rem;
+
 }
 
 /* ================= MODAL PETICION ================= */
