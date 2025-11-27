@@ -8,6 +8,20 @@ function cargaDinamica(contenedor, contenido) {
 
 }
 
+/*OBTENER SERVICIOS*/
+
+async function cargarServicios() {
+
+    const res = await fetch(base_url+"/servicios");
+    const servicios = await res.json();
+
+    console.log("SERVICIOS:", servicios);
+    return servicios;
+}
+
+cargarServicios();
+
+
 /*FUNCIONES ASINCRONICAS*/
 
 async function crearPeticion(peticionData) {
@@ -65,6 +79,16 @@ async function guardarPeticion(data) {
     }
 }
 
+//////////////////////FORMULARIO///////////////////////////
+
+const formulario = document.querySelector("form");
+const nombreInput = document.getElementById("nombre");
+const emailInput = document.getElementById("email");
+const ubicacionInput = document.getElementById("direccion");
+const presupuestoInput = document.getElementById("presupuesto");
+const comentariosInput = document.getElementById("comentarios");
+
+
 // Estado global temporal
 let ultimaPeticion = null;
 
@@ -75,13 +99,13 @@ async function enviarFormulario(e) {
 
     const peticionData = {
         nombre: nombreInput.value.trim(),
-        email: emailInput.value.trim(),
-        direccion: direccionInput.value.trim(),
+        mail: emailInput.value.trim(),
+        ubicacion: ubicacionInput.value.trim(),
         presupuesto: presupuestoValor,
         servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
-    if (!peticionData.nombre || !peticionData.email || !peticionData.direccion || presupuestoValor <= 0) {
+    if (!peticionData.nombre || !peticionData.mail || !peticionData.ubicacion || presupuestoValor <= 0) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
@@ -130,12 +154,12 @@ function mostrarModalConfirmacion(peticion) {
     const overlay = document.getElementById("modalOverlay");
     const modalContenido = document.getElementById("modalContenido");
     const btnEditar = document.getElementById("btnEditar");
-    const btnConfirmar = document.getElementById("btnConfirmar");
+    const btnEliminar = document.getElementById("btnEliminar");
 
     modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
-        <p><strong>Email:</strong> ${peticion.email}</p>
-        <p><strong>Dirección:</strong> ${peticion.direccion}</p>
+        <p><strong>Email:</strong> ${peticion.mail}</p>
+        <p><strong>Dirección:</strong> ${peticion.ubicacion}</p>
         <p><strong>Presupuesto:</strong> USD ${peticion.presupuesto}</p>
         <p><strong>Servicios:</strong></p>
         <ul>
@@ -149,15 +173,18 @@ function mostrarModalConfirmacion(peticion) {
     overlay.classList.add("active");
 
     // Guardamos el ID en localStorage (para editar luego)
-    localStorage.setItem("ultimaPeticionId", peticion.id);
+    localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
+    
 
     // Limpio eventos previos
     btnEditar.replaceWith(btnEditar.cloneNode(true));
-    btnConfirmar.replaceWith(btnConfirmar.cloneNode(true));
+    btnEliminar.replaceWith(btnEliminar.cloneNode(true));
+
 
     // vuelvo a capturarlos ya clonados
     const newBtnEditar = document.getElementById("btnEditar");
-    const newBtnConfirmar = document.getElementById("btnConfirmar");
+    const newBtnEliminar = document.getElementById("btnEliminar");
+
 
     // EVENTO EDITAR
     newBtnEditar.addEventListener("click", () => {
@@ -165,11 +192,23 @@ function mostrarModalConfirmacion(peticion) {
         cargarDatosParaEdicion(peticion);
     });
 
-    // EVENTO CONFIRMAR
-    newBtnConfirmar.addEventListener("click", () => {
+    // EVENTO ELIMINAR
+    newBtnEliminar.addEventListener("click", async () => {
+    const id = peticion._id || peticion.id;
+
+    const eliminado = await eliminarPeticion(id);
+
+    if (eliminado) {
         cerrarModal();
-        alert("Solicitud confirmada correctamente");
-    });
+        alert("Solicitud eliminada correctamente");
+
+        formulario.querySelectorAll("input").forEach(i => (i.value = ""));
+
+        // Reset estado
+        localStorage.removeItem("ultimaPeticionId");
+        ultimaPeticion = null;
+    }
+});
 
 }
 
@@ -217,7 +256,7 @@ async function guardarEdicion(e) {
         alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
         return;
     }
-    
+
     const id = localStorage.getItem("ultimaPeticionId");
 
     const resultado = await actualizarPeticion(id, nuevaData);
@@ -233,8 +272,14 @@ async function guardarEdicion(e) {
         // restaurar comportamiento original
         formulario.removeEventListener("submit", guardarEdicion);
         formulario.addEventListener("submit", enviarFormulario);
+
+        console.log(resultado);
+
     }
 }
+
+
+
 
 /*OBTENER SERVICIOS*/
 
@@ -247,17 +292,6 @@ async function cargarServicios() {
     return servicios;
 }
 
-/*BOTONES*/
+cargarServicios();
 
-const btnCerrar = document.getElementById("btnCerrar");
-const formulario = document.querySelector("form");
-const nombreInput = document.getElementById("nombre");
-const emailInput = document.getElementById("email");
-const direccionInput = document.getElementById("direccion");
-const presupuestoInput = document.getElementById("presupuesto");
-
-/*eventos*/ 
-
-formulario.addEventListener("submit", enviarFormulario);
-btnCerrar.addEventListener("click", cerrarModal);
-document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
+/* hola */
