@@ -79,16 +79,6 @@ async function guardarPeticion(data) {
     }
 }
 
-//////////////////////FORMULARIO///////////////////////////
-
-const formulario = document.querySelector("form");
-const nombreInput = document.getElementById("nombre");
-const emailInput = document.getElementById("email");
-const ubicacionInput = document.getElementById("direccion");
-const presupuestoInput = document.getElementById("presupuesto");
-const comentariosInput = document.getElementById("comentarios");
-
-
 // Estado global temporal
 let ultimaPeticion = null;
 
@@ -278,9 +268,6 @@ async function guardarEdicion(e) {
     }
 }
 
-
-
-
 /*OBTENER SERVICIOS*/
 
 async function cargarServicios() {
@@ -292,6 +279,17 @@ async function cargarServicios() {
     return servicios;
 }
 
-cargarServicios();
+/*BOTONES*/
 
-/* hola */
+const btnCerrar = document.getElementById("btnCerrar");
+const formulario = document.querySelector("form");
+const nombreInput = document.getElementById("nombre");
+const emailInput = document.getElementById("email");
+const direccionInput = document.getElementById("direccion");
+const presupuestoInput = document.getElementById("presupuesto");
+
+/*eventos*/ 
+
+formulario.addEventListener("submit", enviarFormulario);
+btnCerrar.addEventListener("click", cerrarModal);
+document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
