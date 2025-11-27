@@ -79,7 +79,7 @@ async function obtenerPeticiones() {
     }
 }
 
-/////////////////////////////////GUARDAR PETICION EN LOCALSTORAGE///////////////////////////
+/////////////////////////////////GUARDAR PETICION////////////////////////////
 
 async function guardarPeticion(data) {
     try {
@@ -111,11 +111,10 @@ async function enviarFormulario(e) {
         ubicacion: ubicacionInput.value.trim(),
         presupuesto: presupuestoValor,
         comentario: comentarioTextArea.value.trim(),
-        servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
     };
 
     if (!peticionData.nombre || !peticionData.email || !peticionData.ubicacion || presupuestoValor <= 0) {
-        alert("Todos los campos son obligatorios y el presupuesto debe ser válido.");
+        alert("Todos los campos son obligatorios.");
         return;
     }
 
@@ -164,8 +163,6 @@ function mostrarModalConfirmacion(peticion) {
     const modal = document.getElementById("modalConfirmacion");
     const overlay = document.getElementById("modalOverlay");
     const modalContenido = document.getElementById("modalContenido");
-    const btnEditar = document.getElementById("btnEditar");
-    const btnEliminar = document.getElementById("btnEliminar");
 
     modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
@@ -180,6 +177,7 @@ function mostrarModalConfirmacion(peticion) {
 
     // Guardamos el ID en localStorage (para editar luego)
     localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
+    ultimaPeticion = peticion;
 
 }
 
