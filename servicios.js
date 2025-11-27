@@ -22,21 +22,32 @@ async function mostrarServicios() {
         cadaServicio +=
         
                 `<article id=${servicio.id} class="project project--small desactivado">
-                        <div class="project_img ${servicio.id}">
+
+                        <div class="project_img ${servicio.id} ${servicio.ref}">
                         
                         <style>
-                            .${servicio.id} {
+                            .${servicio.ref} {
                                 background-image: url(${servicio.image});
+                                background-size: cover;
+                                background-position: center; 
+                                background-repeat: no-repeat;
+
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                color: white;
+                                font-weight: bold;
+                                text-align: center;
                             }
                         </style>
+
+                            <h2>${servicio.titulo} | ${servicio.categoria}</h2>
                         
                         </div>
 
                         <div class="project_info project_info--small">
                             <span class="project_label">${servicio.plan}</span>
-                            <span class="project_label">${servicio.titulo}</span>
                             <span class="project_label">${servicio.precio}${servicio.moneda}</span>
-                            <p>${servicio.descripcion}</p>
                         </div>
 
                 </article>`
@@ -73,7 +84,7 @@ async function mostrarServicios() {
 
                 num_carrito.textContent = carrito.length;
                 console.log("Carrito actualizado:", carrito);
-                
+
             });
         });
 
