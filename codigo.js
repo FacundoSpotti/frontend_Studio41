@@ -1,4 +1,10 @@
-/*VARIABLES CONSTANTES*/
+/*CONTENEDOR*/
+
+const contenedorPortfolio = document.querySelector('#servicios');
+const contenedorModal = document.querySelector('#contacto');
+const contenedorIntegrantes = document.querySelector('#nosotros');
+
+/*CONTENIDOS*/
 
 const contenidoPortfolio = `
 
@@ -105,8 +111,6 @@ const contenidoPortfolio = `
         </div>
 
 `;
-const contenedorPortfolio = document.querySelector('#servicios');
-
 const contenidoIntegrantes = `
 
         <div class="container">
@@ -136,7 +140,40 @@ const contenidoIntegrantes = `
                 </article>
             </div>
             </div>`;
-const contenedorIntegrantes = document.querySelector('#nosotros');
+const contenidoFormulario = `
+<div class="container contact">
+          <div class="contact_form">
+            <h2 class="section_title">Contactanos</h2>
+            <form>
+                <div class="field">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre"/>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"/>
+                </div>
+
+                <div class="field">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion"/>
+                </div>
+
+                <div class="field">
+                    <label for="presupuesto">Presupuesto:</label>
+                    <input type="text" id="presupuesto" name="presupuesto"/>
+                </div>
+
+                <button type="submit" class="btn btn--primary">Enviar</button>
+            </form>
+        </div>
+
+          <div class="contact_logo">
+            <img src="img/Studio 41 logo.jpeg" alt="Studio 41 Logo"/>
+            <div class="contact_logo-placeholder">Studio 41</div>
+          </div>
+        </div>`;
 
 /*EJECUCIONES*/
 
@@ -144,23 +181,4 @@ cargaDinamica(contenedorPortfolio, contenidoPortfolio);
 cargaDinamica(contenedorIntegrantes, contenidoIntegrantes);
 cargaDinamica(contenedorModal, contenidoModal);
 cargarServicios();
-
-/*CREAR PETICION*/
-/* 
-// Crear una nueva petición desde un formulario
-const nuevaPeticion = {
-    nombre: "Facundo",
-    numero: 123,
-    presupuesto: 500,
-    mensaje: "Quiero un diseño web",
-    mail: "facundo@email.com",
-    ubicacion: "Montevideo",
-    telefono: 12345678,
-    servicios: ["Web", "Branding"]
-}; 
-
-crearPeticion(nuevaPeticion).then(() => {
-    // Una vez creada, actualizamos la lista
-    obtenerPeticiones();
-});
- */
+cargaDinamica(contenedorModal, contenidoFormulario);

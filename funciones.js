@@ -65,18 +65,8 @@ async function guardarPeticion(data) {
     }
 }
 
-//////////////////////FORMULARIO///////////////////////////
-
-const formulario = document.querySelector("form");
-const nombreInput = document.getElementById("nombre");
-const emailInput = document.getElementById("email");
-const direccionInput = document.getElementById("direccion");
-const presupuestoInput = document.getElementById("presupuesto");
-
 // Estado global temporal
 let ultimaPeticion = null;
-
-formulario.addEventListener("submit", enviarFormulario);
 
 async function enviarFormulario(e) {
     e.preventDefault();
@@ -107,12 +97,11 @@ async function enviarFormulario(e) {
     }
 }
 
-
 //////////////////////////////////ACTUALIZAR PETICION///////////////////////////////
 
 async function actualizarPeticion(id, peticionData) {
     try {
-        const response = await fetch(`${base_url}/peticiones/:${id}`, {
+        const response = await fetch(`${base_url}/peticiones/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -189,11 +178,6 @@ function cerrarModal() {
     document.getElementById("modalOverlay").classList.remove("active");
 }
 
-const btnCerrar = document.getElementById("btnCerrar");
-btnCerrar.addEventListener("click", cerrarModal);
-
-document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
-
 //////////////////////////////////////////EDITAR PETICION///////////////////////////////
 
 function cargarDatosParaEdicion(peticion) {
@@ -252,9 +236,6 @@ async function guardarEdicion(e) {
     }
 }
 
-
-
-
 /*OBTENER SERVICIOS*/
 
 async function cargarServicios() {
@@ -266,6 +247,17 @@ async function cargarServicios() {
     return servicios;
 }
 
-cargarServicios();
+/*BOTONES*/
 
-/* hola */
+const btnCerrar = document.getElementById("btnCerrar");
+const formulario = document.querySelector("form");
+const nombreInput = document.getElementById("nombre");
+const emailInput = document.getElementById("email");
+const direccionInput = document.getElementById("direccion");
+const presupuestoInput = document.getElementById("presupuesto");
+
+/*eventos*/ 
+
+formulario.addEventListener("submit", enviarFormulario);
+btnCerrar.addEventListener("click", cerrarModal);
+document.getElementById("modalOverlay").addEventListener("click", cerrarModal);
