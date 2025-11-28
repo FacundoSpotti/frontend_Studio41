@@ -92,10 +92,10 @@ body {
 
 .header {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr  1fr; /* Logo | Nav | Botón */
   align-items: center;
   height: 10vh;
-  padding: 20px 5%;
+  padding: 0 5%;
 }
 
 .solicitud{
@@ -146,6 +146,7 @@ body {
 }
 
 .logo_header {
+  justify-self: start; /* Logo a la izquierda */
 
     a{
       font-size: 22px;
@@ -158,8 +159,8 @@ body {
 
 .nav {
   display: flex;
+  justify-content: center; /* Nav centrado en la columna del medio */
   gap: 20px;
-  justify-content: center;
 }
 
 .nav a {
@@ -173,6 +174,7 @@ body {
 }
 
 .btnContacto {
+  justify-self: end; /* Botón a la derecha */
   padding: 1rem 2rem;
   border-radius: 25px;
   border: 1px solid rgba(255,255,255,0.4);
@@ -420,7 +422,7 @@ main .hero {
   margin-bottom: 15px;
 }
 
-.field input {
+.field input, textarea{
   padding: 10px;
   border: none;
   border-radius: 8px;
