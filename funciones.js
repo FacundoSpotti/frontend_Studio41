@@ -16,6 +16,7 @@ const comentarioTextArea = document.getElementById("comentario");
 const presupuestoInput = document.getElementById("presupuesto");
 
 const base_url = "https://backend-studio41.onrender.com";
+const { url } = require("inspector");
 
 function cargaDinamica(contenedor, contenido) {
 
