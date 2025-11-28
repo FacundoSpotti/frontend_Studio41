@@ -66,6 +66,7 @@ async function mostrarServicios() {
         console.error("Error al mostrar servicios:", error);
 
     }
+
 }
 
 mostrarServicios();
