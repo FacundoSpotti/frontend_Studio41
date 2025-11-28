@@ -344,15 +344,18 @@ main .hero {
   font-size: 26px;
   margin-bottom: 30px;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 40px;
+  grid-template-columns: repeat(2, 1fr); /* antes: repeat(2,1fr) */
+  gap: 30px;
+  justify-items: center;
 }
 
 .team-card {
+  width: 100%; /* fija ancho más estrecho */
   background: rgba(255,255,255,0.05);
   border-radius: 18px;
   overflow: hidden;
@@ -360,23 +363,26 @@ main .hero {
 
 .team-card_photo img {
   width: 100%;
-  height: 260px;
+  height: 500px; /* antes: 260px */
+  object-fit: contain; /* antes: cover */
+  background: black; /* evita bordes raros */
   object-fit: cover;
 }
 
 .team-card_body {
-  padding: 20px;
+  padding: 18px;
   text-align: center;
 }
 
 .team-card_name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .team-card_role {
   opacity: 0.8;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .btn {

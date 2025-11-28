@@ -1,10 +1,22 @@
 const btn_solicitar = document.querySelector('.solicitud');
 
-btn_solicitar.addEventListener('click', () => {
+let carrito = [];
 
+btn_solicitar.addEventListener('click', btnSolicitar);
+
+function btnSolicitar () {
+    const seleccionados = [...document.querySelectorAll(".activado")]
+        .map(serv => serv.id);
+
+    if (seleccionados.length === 0) {
+        alert("Debes seleccionar al menos un servicio");
+        return;
+    }
+
+    localStorage.setItem("carritoServicios", JSON.stringify(seleccionados));
     window.location.href = "confirmación.html";
+};
 
-});
 
 async function mostrarServicios() { 
 
@@ -62,48 +74,17 @@ async function mostrarServicios() {
 
     cargaDinamica(contenedorServicios, contenidoServicios);
 
-    let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
-
     const cajas = document.querySelectorAll('.desactivado');
     const num_carrito = document.querySelector('.num_carrito');
 
     num_carrito.innerHTML = carrito.length;
 
     cajas.forEach(caja => {
-        if (carrito.includes(caja.id)) {
-            caja.classList.add("activado");
-            caja.classList.remove("desactivado");
-        }
-    });
-
-        cajas.forEach(caja => {
-            caja.addEventListener("click", function () {
-
-                const id = this.id;
-
-                if (carrito.includes(id)) {
-
-                    // Quitar
-                    carrito = carrito.filter(serv => serv !== id);
-                    this.classList.remove("activado");
-                    this.classList.add("desactivado");
-
-                } else {
-
-                    // Agregar
-                    carrito.push(id);
-                    this.classList.remove("desactivado");
-                    this.classList.add("activado");
-                }
-
-                // Guardar cambios
-                localStorage.setItem("carritoServicios", JSON.stringify(carrito));
-
-                num_carrito.textContent = carrito.length;
-                console.log("Carrito actualizado:", carrito);
-
-            });
+        caja.addEventListener("click", function () {
+            this.classList.toggle("activado");
+            this.classList.toggle("desactivado");
         });
+    });
 
     } catch (error) {
         console.error("Error al mostrar servicios:", error);

@@ -60,7 +60,7 @@ const proyectos = [
         type: "Brand Identity & Web Design",
         description: "A complete rebranding of the ‘Fiesta del Uruguay’ identity, including logo, visual system and website. Ismael and Ignacio led the identity redesign, and the website was developed to reflect the new brand philosophy.",
         team: ["Ismael", "Ignacio"],
-        image: "",
+        image: "img/proyectos/FDU.jpg",
         additionalInfo: {
         client: "Fiesta del Uruguay",
         role: "Brand identity redesign and website"
