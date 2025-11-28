@@ -1,4 +1,4 @@
-console.log("JS funcionando")
+console.log("JS funcionando");
 
 ////////////////////////////////////BOTONES E INPUTS////////////////////////////////////
 
@@ -21,17 +21,15 @@ const base_url = "https://backend-studio41.onrender.com";
 ////////////////////////////////////CARGA DINÁMICA////////////////////////////////////
 
 function cargaDinamica(contenedor, contenido) {
-    contenedor.innerHTML = contenido;
+  contenedor.innerHTML = contenido;
 }
 
 ///////////////////////////////////OBTENER SERVICIOS////////////////////////////////////
 
-
 async function cargarServicios() {
-
-    const res = await fetch(base_url+"/servicios");
-    const servicios = await res.json();
-    return servicios;
+  const res = await fetch(base_url + "/servicios");
+  const servicios = await res.json();
+  return servicios;
 }
 
 cargarServicios();
@@ -39,234 +37,238 @@ cargarServicios();
 /////////////////////////////////PETICIONES CRUD////////////////////////////////////
 
 async function crearPeticion(peticionData) {
-    try {
-        const response = await fetch(base_url+"/peticiones", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(peticionData),
-        });
+  try {
+    const response = await fetch(base_url + "/peticiones", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(peticionData),
+    });
 
-        if (!response.ok) { //.ok es una propiedad del objeto Response que devuelve fetch()
-            throw new Error("Error al crear petición: " + response.status);
-        }
-
-        const nuevaPeticion = await response.json();
-        console.log("Petición creada:", nuevaPeticion);
-        return nuevaPeticion;
-
-    } catch (error) {
-        console.error("Error fetch:", error);
+    if (!response.ok) {
+      //.ok es una propiedad del objeto Response que devuelve fetch()
+      throw new Error("Error al crear petición: " + response.status);
     }
+
+    const nuevaPeticion = await response.json();
+    console.log("Petición creada:", nuevaPeticion);
+    return nuevaPeticion;
+  } catch (error) {
+    console.error("Error fetch:", error);
+  }
 }
 
 async function obtenerPeticiones() {
-    try {
-        const response = await fetch(base_url+"/peticiones");
-        if (!response.ok) {
-            throw new Error("Error al obtener peticiones: " + response.status);
-        }
-        const peticiones = await response.json();
-        console.log("Peticiones recibidas:", peticiones);
-        return peticiones;
-    } catch (error) {
-        console.error("Error fetch:", error);
+  try {
+    const response = await fetch(base_url + "/peticiones");
+    if (!response.ok) {
+      throw new Error("Error al obtener peticiones: " + response.status);
     }
+    const peticiones = await response.json();
+    console.log("Peticiones recibidas:", peticiones);
+    return peticiones;
+  } catch (error) {
+    console.error("Error fetch:", error);
+  }
 }
 
 /////////////////////////////////GUARDAR PETICION////////////////////////////
 
 async function guardarPeticion(data) {
-    try {
-        const response = await fetch(`${base_url}/peticiones`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
+  try {
+    const response = await fetch(`${base_url}/peticiones`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-        if (!response.ok) throw new Error("No se pudo guardar la petición");
+    if (!response.ok) throw new Error("No se pudo guardar la petición");
 
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Estado global temporal
 let ultimaPeticion = null;
 
 async function enviarFormulario(e) {
-    e.preventDefault(); 
+  e.preventDefault();
 
-    const presupuestoValor = Number(presupuestoInput.value); // Convertir a número
+  const presupuestoValor = Number(presupuestoInput.value); // Convertir a número
 
-    const peticionData = {
-        nombre: nombreInput.value.trim(),
-        email: emailInput.value.trim(),
-        ubicacion: ubicacionInput.value.trim(),
-        presupuesto: presupuestoValor,
-        comentario: comentarioTextArea.value.trim(),
-    };
+  const peticionData = {
+    nombre: nombreInput.value.trim(),
+    email: emailInput.value.trim(),
+    ubicacion: ubicacionInput.value.trim(),
+    presupuesto: presupuestoValor,
+    comentario: comentarioTextArea.value.trim(),
+  };
 
-    if (!peticionData.nombre || !peticionData.email || !peticionData.ubicacion || presupuestoValor <= 0) {
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
+  if (
+    !peticionData.nombre ||
+    !peticionData.email ||
+    !peticionData.ubicacion ||
+    presupuestoValor <= 0
+  ) {
+    alert("Todos los campos son obligatorios.");
+    return;
+  }
 
-    const resultado = await guardarPeticion(peticionData);
+  const resultado = await guardarPeticion(peticionData);
 
-    if (resultado) {
-        ultimaPeticion = resultado;
-        mostrarModalConfirmacion(resultado);
+  if (resultado) {
+    ultimaPeticion = resultado;
+    mostrarModalConfirmacion(resultado);
 
-        formulario.querySelectorAll("input").forEach(input => (input.value = "")); // limpio inputs
-        comentarioTextArea.value = "";
-    }
+    formulario.querySelectorAll("input").forEach((input) => (input.value = "")); // limpio inputs
+    comentarioTextArea.value = "";
+  }
 }
 
 //////////////////////////////////ACTUALIZAR PETICION///////////////////////////////
 
 async function actualizarPeticion(id, peticionData) {
-    try {
-        const response = await fetch(`${base_url}/peticiones/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(peticionData),
-        });
+  try {
+    const response = await fetch(`${base_url}/peticiones/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(peticionData),
+    });
 
-        if (!response.ok) {
-            throw new Error("Error al actualizar petición: " + response.status);
-        }
-
-        const peticionActualizada = await response.json();
-        console.log("Petición actualizada:", peticionActualizada);
-        return peticionActualizada;
-
-    } catch (error) {
-        console.error("Error fetch:", error);
+    if (!response.ok) {
+      throw new Error("Error al actualizar petición: " + response.status);
     }
+
+    const peticionActualizada = await response.json();
+    console.log("Petición actualizada:", peticionActualizada);
+    return peticionActualizada;
+  } catch (error) {
+    console.error("Error fetch:", error);
+  }
 }
 
 //////////////////////////////////MOSTRAR MODAL///////////////////////////////
 
 function mostrarModalConfirmacion(peticion) {
+  const modal = document.getElementById("modalConfirmacion");
+  const overlay = document.getElementById("modalOverlay");
+  const modalContenido = document.getElementById("modalContenido");
 
-    const modal = document.getElementById("modalConfirmacion");
-    const overlay = document.getElementById("modalOverlay");
-    const modalContenido = document.getElementById("modalContenido");
-
-    modalContenido.innerHTML = `
+  modalContenido.innerHTML = `
         <p><strong>Nombre:</strong> ${peticion.nombre}</p>
         <p><strong>eMail:</strong> ${peticion.email}</p>
         <p><strong>Dirección:</strong> ${peticion.ubicacion}</p>
         <p><strong>Presupuesto:</strong> USD ${peticion.presupuesto}</p>
-        <p><strong>Comentario:</strong> ${peticion.comentario || "Sin comentario"}</p>
+        <p><strong>Comentario:</strong> ${
+          peticion.comentario || "Sin comentario"
+        }</p>
     `;
 
-    modal.classList.add("active"); //agrego la clase active para mostrar la modal
-    overlay.classList.add("active"); //agrego la clase active para mostrar el overlay
+  modal.classList.add("active"); //agrego la clase active para mostrar la modal
+  overlay.classList.add("active"); //agrego la clase active para mostrar el overlay
 
-    localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id); // Guardamos el ID en localStorage
-    ultimaPeticion = peticion;
+  localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id); // Guardamos el ID en localStorage
+  ultimaPeticion = peticion;
 }
 
 function cerrarModal() {
-    document.getElementById("modalConfirmacion").classList.remove("active"); //quito la clase active para ocultar la modal
-    document.getElementById("modalOverlay").classList.remove("active");
+  document.getElementById("modalConfirmacion").classList.remove("active"); //quito la clase active para ocultar la modal
+  document.getElementById("modalOverlay").classList.remove("active");
 }
 
 //////////////////////////////////////////EDITAR PETICION///////////////////////////////
 
 function cargarDatosParaEdicion(peticion) {
+  nombreInput.value = peticion.nombre;
+  emailInput.value = peticion.email;
+  ubicacionInput.value = peticion.ubicacion;
+  presupuestoInput.value = peticion.presupuesto;
+  comentarioTextArea.value = peticion.comentario || "";
 
-    nombreInput.value = peticion.nombre;
-    emailInput.value = peticion.email;
-    ubicacionInput.value = peticion.ubicacion;
-    presupuestoInput.value = peticion.presupuesto;
-    comentarioTextArea.value = peticion.comentario || "";
+  ultimaPeticion = peticion;
 
-    ultimaPeticion = peticion;
+  btnCrear.style.display = "none";
+  btnActualizar.style.display = "inline-block";
 
-    btnCrear.style.display = "none";
-    btnActualizar.style.display = "inline-block";
-
-    cerrarModal();
+  cerrarModal();
 }
 
 async function guardarEdicion() {
+  const id = localStorage.getItem("ultimaPeticionId");
 
-    const id = localStorage.getItem("ultimaPeticionId");
+  const nuevaData = {
+    nombre: nombreInput.value.trim(),
+    email: emailInput.value.trim(),
+    ubicacion: ubicacionInput.value.trim(),
+    presupuesto: Number(presupuestoInput.value),
+    comentario: comentarioTextArea.value.trim(),
+    servicios: JSON.parse(localStorage.getItem("carritoServicios")) || [],
+  };
 
-    const nuevaData = {
-        nombre: nombreInput.value.trim(),
-        email: emailInput.value.trim(),
-        ubicacion: ubicacionInput.value.trim(),
-        presupuesto: Number(presupuestoInput.value),
-        comentario: comentarioTextArea.value.trim(),
-        servicios: JSON.parse(localStorage.getItem("carritoServicios")) || []
-    };
+  const result = await actualizarPeticion(id, nuevaData);
 
-    const result = await actualizarPeticion(id, nuevaData);
+  if (result) {
+    alert("Cambios guardados");
 
-    if(result) {
-        alert("Cambios guardados");
+    formulario.reset();
 
-        formulario.reset();
+    // Volver estado botones
+    btnCrear.style.display = "inline-block";
+    btnActualizar.style.display = "none";
 
-        // Volver estado botones
-        btnCrear.style.display = "inline-block";
-        btnActualizar.style.display = "none";
-
-        ultimaPeticion = null;
-        localStorage.removeItem("ultimaPeticionId");
-    }
+    ultimaPeticion = null;
+    localStorage.removeItem("ultimaPeticionId");
+  }
 }
 
 //////////////////////////////////////////ELIMINAR PETICION///////////////////////////////
 
-
 async function eliminarPeticion(id) {
-    try {
-        const response = await fetch(`${base_url}/peticiones/${id}`, {
-            method: "DELETE"
-        });
+  try {
+    const response = await fetch(`${base_url}/peticiones/${id}`, {
+      method: "DELETE",
+    });
 
-        if (!response.ok) {
-            throw new Error("Error al eliminar petición: " + response.status);
-        }
-
-        return true;
-    } catch (error) {
-        console.error("Error eliminando:", error);
-        return false;
+    if (!response.ok) {
+      throw new Error("Error al eliminar petición: " + response.status);
     }
+
+    return true;
+  } catch (error) {
+    console.error("Error eliminando:", error);
+    return false;
+  }
 }
 
 async function eliminarPeticionConfirmada() {
-    const id = localStorage.getItem("ultimaPeticionId");
+  const id = localStorage.getItem("ultimaPeticionId");
 
-    await eliminarPeticion(id);
+  await eliminarPeticion(id);
 
-    alert("Solicitud eliminada");
+  alert("Solicitud eliminada");
 
-    formulario.reset();
-    ultimaPeticion = null;
-    localStorage.removeItem("ultimaPeticionId");
+  formulario.reset();
+  ultimaPeticion = null;
+  localStorage.removeItem("ultimaPeticionId");
 
-    cerrarModal();
-    
-    btnCrear.style.display = "inline-block";
-    btnActualizar.style.display = "none";
+  cerrarModal();
+
+  btnCrear.style.display = "inline-block";
+  btnActualizar.style.display = "none";
 }
 
 //////////////////////////////////////////EVENTOS///////////////////////////////
 
 formulario.addEventListener("submit", enviarFormulario);
 btnActualizar.addEventListener("click", guardarEdicion);
-btnEditar.addEventListener("click", () => cargarDatosParaEdicion(ultimaPeticion));
+btnEditar.addEventListener("click", () =>
+  cargarDatosParaEdicion(ultimaPeticion)
+);
 btnEliminar.addEventListener("click", eliminarPeticionConfirmada);
 btnCerrar.addEventListener("click", cerrarModal);
 modalOverlay.addEventListener("click", cerrarModal);

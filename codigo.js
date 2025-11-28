@@ -1,8 +1,8 @@
 /*CONTENEDOR*/
 
-const contenedorPortfolio = document.querySelector('#portfolio');
-const contenedorModal = document.querySelector('#contacto');
-const contenedorIntegrantes = document.querySelector('#nosotros');
+const contenedorPortfolio = document.querySelector("#portfolio");
+const contenedorModal = document.querySelector("#contacto");
+const contenedorIntegrantes = document.querySelector("#nosotros");
 
 /*CONTENIDOS*/
 

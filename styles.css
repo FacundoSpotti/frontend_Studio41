@@ -28,7 +28,7 @@ body {
   position: absolute;
   inset: 0;
   backdrop-filter: blur(18px);
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .container {
@@ -42,24 +42,24 @@ body {
 
 .header {
   display: grid;
-  grid-template-columns: 1fr 1fr  1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 10vh;
   padding: 0 5%;
 }
 
-.solicitud{
+.solicitud {
   position: fixed;
   z-index: 999;
   bottom: 5rem;
   right: 5rem;
 }
 
-.btn_carrito{
+.btn_carrito {
   position: relative;
   justify-self: end;
-  
-  div{
+
+  div {
     width: 1rem;
     height: 1rem;
     background-color: white;
@@ -69,7 +69,7 @@ body {
     bottom: 0;
     padding: 0;
 
-    span{
+    span {
       height: 100%;
       font-size: 0.8rem;
       font-weight: 900;
@@ -81,19 +81,19 @@ body {
   }
 }
 
-.material-symbols-outlined{
-  color:  white;
+.material-symbols-outlined {
+  color: white;
 }
 
 .logo_header {
   justify-self: start;
 
-    a{
-      font-size: 22px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-    }
+  a {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .nav {
@@ -116,8 +116,8 @@ body {
   justify-self: end;
   padding: 1rem 2rem;
   border-radius: 25px;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
   text-decoration: none;
   transition: 0.3s;
@@ -159,7 +159,7 @@ main .hero {
   background: rgba(0, 0, 0, 0);
 }
 
-.hero-bg-2{
+.hero-bg-2 {
   position: relative;
   height: 30vh;
   width: 100%;
@@ -195,9 +195,9 @@ main .hero {
 }
 
 .project {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   margin-bottom: 40px;
   position: relative;
@@ -205,7 +205,7 @@ main .hero {
 
 .project_img {
   background-position: center;
-  background-size:cover;
+  background-size: cover;
   height: 260px;
 }
 
@@ -215,7 +215,7 @@ main .hero {
   padding: 15px 20px;
   font-size: 14px;
 
-  p{
+  p {
     display: none;
   }
 }
@@ -226,7 +226,7 @@ main .hero {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
@@ -243,17 +243,17 @@ main .hero {
   height: 200px;
 }
 
-.desactivado{
+.desactivado {
   outline: 0;
   border: 0.1rem solid #f9741600;
 }
 
-.project--small:hover{
+.project--small:hover {
   border: 0.1rem solid #f97316;
   transition: ease-in-out 100ms;
 }
 
-.activado{
+.activado {
   border: 0.1rem solid #ffffff;
 }
 
@@ -273,7 +273,7 @@ main .hero {
 
 .team-card {
   width: 100%;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 18px;
   overflow: hidden;
 }
@@ -311,7 +311,7 @@ main .hero {
 .btn--ghost {
   background: transparent;
   color: white;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .btn--ghost:hover {
@@ -320,7 +320,7 @@ main .hero {
   transition: 0.5s;
 }
 
-.invisible{
+.invisible {
   display: none;
 }
 
@@ -333,7 +333,7 @@ main .hero {
 
 .contact_form {
   flex: 1;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   padding: 30px;
   border-radius: 18px;
 }
@@ -344,7 +344,8 @@ main .hero {
   margin-bottom: 15px;
 }
 
-.field input, textarea{
+.field input,
+textarea {
   padding: 10px;
   border: none;
   border-radius: 8px;
@@ -370,18 +371,18 @@ main .hero {
   margin: auto;
 }
 
-#servicios{
+#servicios {
   padding: 0 5rem;
 }
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   visibility: hidden;
   opacity: 0;
-  transition: .3s ease;
+  transition: 0.3s ease;
   z-index: 1000;
 }
 
@@ -394,22 +395,22 @@ main .hero {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%) scale(.8);
+  transform: translate(-50%, -60%) scale(0.8);
   width: 350px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 20px;
   border-radius: 15px;
   backdrop-filter: blur(10px);
   visibility: hidden;
   opacity: 0;
-  transition: .3s ease;
+  transition: 0.3s ease;
   z-index: 1100;
   color: white;
 }
 
-.project-grid{
-  article:hover{
+.project-grid {
+  article:hover {
     border: 0.1rem solid #f9741600;
   }
 }
@@ -423,7 +424,7 @@ main .hero {
 
 .modal-content {
   margin-top: 15px;
-  opacity: .9;
+  opacity: 0.9;
   line-height: 1.4;
 }
 
@@ -470,7 +471,7 @@ main .hero {
   transform: scale(1.1);
 }
 
-.hero_servicios{
+.hero_servicios {
   height: 20vh;
   text-align: center;
 }
@@ -481,32 +482,40 @@ main .hero {
   opacity: 0.6;
 }
 
-.serSel{
+.serSel {
   font-size: 1.5rem;
   padding: 1rem;
   text-align: center;
 }
 
-@media(max-width: 850px){
-  .nav { display: none; }
-  .project-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: 1fr; }
-  .contact { flex-direction: column; }
+@media (max-width: 850px) {
+  .nav {
+    display: none;
+  }
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact {
+    flex-direction: column;
+  }
 
-  .header{
+  .header {
     grid-template-columns: 1fr 1fr;
   }
 
-  .hero-bg_text{
+  .hero-bg_text {
     font-size: 8rem;
     letter-spacing: 0.5rem;
   }
 
-  .contact_form{
+  .contact_form {
     width: 100%;
   }
 
-  .solicitud{
+  .solicitud {
     bottom: 5vh;
     right: 5vh;
   }

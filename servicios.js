@@ -1,36 +1,32 @@
-const btn_solicitar = document.querySelector('.solicitud');
+const btn_solicitar = document.querySelector(".solicitud");
 
 let carrito = [];
 
-btn_solicitar.addEventListener('click', btnSolicitar);
+btn_solicitar.addEventListener("click", btnSolicitar);
 
-function btnSolicitar () {
-    const seleccionados = [...document.querySelectorAll(".activado")]
-        .map(serv => serv.id);
+function btnSolicitar() {
+  const seleccionados = [...document.querySelectorAll(".activado")].map(
+    (serv) => serv.id
+  );
 
-    if (seleccionados.length === 0) {
-        alert("Debes seleccionar al menos un servicio");
-        return;
-    }
+  if (seleccionados.length === 0) {
+    alert("Debes seleccionar al menos un servicio");
+    return;
+  }
 
-    localStorage.setItem("carritoServicios", JSON.stringify(seleccionados));
-    window.location.href = "confirmación.html";
-};
+  localStorage.setItem("carritoServicios", JSON.stringify(seleccionados));
+  window.location.href = "confirmación.html";
+}
 
+async function mostrarServicios() {
+  try {
+    const contenedorServicios = document.querySelector("#servicios");
+    const servicios = await cargarServicios();
 
-async function mostrarServicios() { 
+    let cadaServicio = "";
 
-    try {
-
-        const contenedorServicios = document.querySelector('#servicios');
-        const servicios = await cargarServicios();
-
-        let cadaServicio = '';
-
-        servicios.forEach(servicio => {
-
-            cadaServicio +=
-                `<article id=${servicio.id} class="project project--small desactivado">
+    servicios.forEach((servicio) => {
+      cadaServicio += `<article id=${servicio.id} class="project project--small desactivado">
                         <div class="project_img ${servicio.id} ${servicio.ref}">
                             <style>
                                 .${servicio.ref} {
@@ -54,33 +50,32 @@ async function mostrarServicios() {
                             <span class="project_label">${servicio.plan}</span>
                             <span class="project_label">${servicio.precio}${servicio.moneda}</span>
                         </div>
-                </article>`  
-        });
+                </article>`;
+    });
 
-        const contenidoServicios = `
+    const contenidoServicios = `
             
             <div class="project-grid">${cadaServicio}</div>`;
 
-        cargaDinamica(contenedorServicios, contenidoServicios);
+    cargaDinamica(contenedorServicios, contenidoServicios);
 
-        const cajas = document.querySelectorAll('.project');
-        const num_carrito = document.querySelector('.num_carrito');
+    const cajas = document.querySelectorAll(".project");
+    const num_carrito = document.querySelector(".num_carrito");
 
-        num_carrito.innerHTML = 0;
+    num_carrito.innerHTML = 0;
 
-        cajas.forEach(caja => {
-            caja.addEventListener("click", function () {
-                this.classList.toggle("activado"); //alterno la clase activado
-                this.classList.toggle("desactivado");
+    cajas.forEach((caja) => {
+      caja.addEventListener("click", function () {
+        this.classList.toggle("activado"); //alterno la clase activado
+        this.classList.toggle("desactivado");
 
-                const seleccionados = document.querySelectorAll(".activado").length;
-                num_carrito.innerHTML = seleccionados;
-            });
-        });
-
-        } catch (error) {
-            console.error("Error al mostrar servicios:", error);
-        }
+        const seleccionados = document.querySelectorAll(".activado").length;
+        num_carrito.innerHTML = seleccionados;
+      });
+    });
+  } catch (error) {
+    console.error("Error al mostrar servicios:", error);
+  }
 }
 
 mostrarServicios();

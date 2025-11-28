@@ -4,30 +4,30 @@ const formulario = document.querySelector("form");
 ////////////////////////////////////CARGAR SERVICIOS////////////////////////////////////
 
 async function cargarServicios() {
-    const res = await fetch(base_url + "/servicios");
-    return await res.json();
+  const res = await fetch(base_url + "/servicios");
+  return await res.json();
 }
 
 ////////////////////////////////////MOSTRAR SERVICIOS////////////////////////////////////
 
 async function mostrarServicios() {
+  let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
 
-    let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
+  if (carrito.length === 0) {
+    window.location.href = "servicios.html"; //Si el carrito está vacío, me manda a servicios.
+    return;
+  }
 
-    if (carrito.length === 0) {
-        window.location.href = "servicios.html"; //Si el carrito está vacío, me manda a servicios.
-        return;
-    }
+  const contenedor = document.querySelector("#servicio-carrito");
+  const servicios = await cargarServicios();
+  let contenedorServicios = "";
 
-    const contenedor = document.querySelector("#servicio-carrito");
-    const servicios = await cargarServicios();
-    let contenedorServicios = "";
+  carrito.forEach((id) => {
+    //recorro el array carrito
+    const servicio = servicios.find((servicio) => servicio.id == id); //busca dentro del array de servicios (que viene del backend) el objeto que tenga ese ID.
+    if (!servicio) return;
 
-    carrito.forEach((id) => { //recorro el array carrito
-        const servicio = servicios.find(servicio => servicio.id == id); //busca dentro del array de servicios (que viene del backend) el objeto que tenga ese ID.
-        if (!servicio) return;
-
-        contenedorServicios += `
+    contenedorServicios += `
         <article class="project project--small" servicio-id="${id}">
 
             <button class="btnEliminarServicio">✕</button>
@@ -41,21 +41,21 @@ async function mostrarServicios() {
             
         </article>
         `;
-    });
+  });
 
   contenedor.innerHTML = contenedorServicios;
 
-  document.querySelectorAll(".btnEliminarServicio").forEach(btn => {
+  document.querySelectorAll(".btnEliminarServicio").forEach((btn) => {
     btn.addEventListener("click", function () {
       const card = this.parentElement; //me sirve para a partir del botón, llegar a la tarjeta completa. Info extraída de: https://www.w3schools.com/jsref/prop_node_parentelement.asp
       const id = card.getAttribute("servicio-id"); //por medio de getAttribute, obtengo el ID del servicio que quiero eliminar.
 
-    for (let i = 0; i < carrito.length; i++) {
-      if (carrito[i] == id) {
-        carrito.splice(i, 1);
-        break;
+      for (let i = 0; i < carrito.length; i++) {
+        if (carrito[i] == id) {
+          carrito.splice(i, 1);
+          break;
+        }
       }
-    }
       localStorage.setItem("carritoServicios", JSON.stringify(carrito));
 
       card.remove(); //.remove elimina un elemento del documento. Info extraída de: https://www.w3schools.com/jsref/met_element_remove.asp
@@ -72,7 +72,7 @@ async function mostrarServicios() {
 async function guardarSolicitud(data) {
   const res = await fetch(base_url + "/solicitudes", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
@@ -89,21 +89,25 @@ async function enviarFormulario(e) {
   const carrito = JSON.parse(localStorage.getItem("carritoServicios")) || []; //Obtengo el carrito desde el localStorage.
 
   if (carrito.length === 0) {
-      alert("No seleccionaste servicios.");
-      return;
+    alert("No seleccionaste servicios.");
+    return;
   }
 
   const solicitudData = {
-      nombre: nombre.value.trim(),
-      email: email.value.trim(),
-      ubicacion: ubicacion.value.trim(),
-      comentario: comentario.value.trim(),
-      presupuesto: Number(presupuesto.value),
-      numero: 0,
-      servicios: carrito.map(Number)
+    nombre: nombre.value.trim(),
+    email: email.value.trim(),
+    ubicacion: ubicacion.value.trim(),
+    comentario: comentario.value.trim(),
+    presupuesto: Number(presupuesto.value),
+    numero: 0,
+    servicios: carrito.map(Number),
   };
 
-  if (!solicitudData.nombre || !solicitudData.email || !solicitudData.presupuesto){
+  if (
+    !solicitudData.nombre ||
+    !solicitudData.email ||
+    !solicitudData.presupuesto
+  ) {
     alert("Completa todos los campos.");
     return;
   }
@@ -114,7 +118,7 @@ async function enviarFormulario(e) {
     localStorage.removeItem("carritoServicios");
     formulario.reset();
     window.location.href = "index.html";
-  }catch{
+  } catch {
     alert("Error enviando solicitud.");
   }
 }
