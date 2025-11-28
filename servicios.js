@@ -74,15 +74,18 @@ async function mostrarServicios() {
 
     cargaDinamica(contenedorServicios, contenidoServicios);
 
-    const cajas = document.querySelectorAll('.desactivado');
+    const cajas = document.querySelectorAll('.project');
     const num_carrito = document.querySelector('.num_carrito');
 
-    num_carrito.innerHTML = carrito.length;
+    num_carrito.innerHTML = 0;
 
     cajas.forEach(caja => {
         caja.addEventListener("click", function () {
             this.classList.toggle("activado");
             this.classList.toggle("desactivado");
+
+            const seleccionados = document.querySelectorAll(".activado").length;
+            num_carrito.textContent = seleccionados;
         });
     });
 
