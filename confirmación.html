@@ -42,8 +42,13 @@
          <div class="container contact">
           <div class="contact_form">
             <h2 class="section_title">Confrmá tu compra</h2>
-            
             <form>
+
+              <section id="servicios">
+
+                 <!--CARGA DINAMICA DE LOS SERVICIOS-->
+
+              </section>
 
                 <div class="field">
                     <label for="nombre">Nombre:</label>
@@ -71,16 +76,6 @@
                 </div>
 
                 <button type="submit" class="btn btn--primary" id="btnEnviar">Enviar</button>
-                <button id="btnActualizar" type="button" class="btn btn--ghost" style="display:none;">Guardar cambios</button>
-
-                <h3 class="serSel">Servicios seleccionados:</h3>
-
-                <div id="servicio-carrito">
-
-                  <!-- CARGA DINAMIDA DE LOS ITEMES DEL SERVICIO -->
-
-                </div>
-            
             </form>        
           </div>
         </div>
@@ -118,6 +113,7 @@
     </footer>
 
     <script src="datos.js"></script>
+    <script src="funciones.js"></script>
     <script src="confirmación.js"></script>
 
   </body>
