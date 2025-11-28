@@ -314,6 +314,12 @@ main .hero {
   border: 1px solid rgba(255,255,255,0.4);
 }
 
+.btn--ghost:hover {
+  background: #ffffff32;
+  border-color: #ffffff;
+  transition: 0.5s;
+}
+
 .invisible{
   display: none;
 }
@@ -351,6 +357,11 @@ main .hero {
   border-radius: 25px;
   color: black;
   cursor: pointer;
+}
+
+.btn--primary:hover {
+  background: #ffa200;
+  transition: 0.5s;
 }
 
 .contact_logo img {
@@ -397,9 +408,16 @@ main .hero {
   color: white;
 }
 
+.project-grid{
+  article:hover{
+    border: 0.1rem solid #f9741600;
+  }
+}
+
 .modal.active {
   visibility: visible;
   opacity: 1;
+  width: 30%;
   transform: translate(-50%, -50%) scale(1);
 }
 
@@ -463,9 +481,33 @@ main .hero {
   opacity: 0.6;
 }
 
+.serSel{
+  font-size: 1.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
 @media(max-width: 850px){
   .nav { display: none; }
   .project-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: 1fr; }
   .contact { flex-direction: column; }
+
+  .header{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-bg_text{
+    font-size: 8rem;
+    letter-spacing: 0.5rem;
+  }
+
+  .contact_form{
+    width: 100%;
+  }
+
+  .solicitud{
+    bottom: 5vh;
+    right: 5vh;
+  }
 }

@@ -101,7 +101,6 @@ const contenidoIntegrantes = `
         <div class="team-card_body">
             <h3 class="team-card_name">${integrantes[0].name}</h3>
             <p class="team-card_role">${integrantes[0].role}</p>
-            <button class="btn btn--ghost">Ver más</button>
         </div>
       </article>
       <article class="team-card">
@@ -111,7 +110,6 @@ const contenidoIntegrantes = `
         <div class="team-card_body">
           <h3 class="team-card_name">${integrantes[1].name}</h3>
           <p class="team-card_role">${integrantes[1].role}</p>
-          <button class="btn btn--ghost">Ver más</button>
         </div>
       </article>
     </div>
