@@ -38,27 +38,23 @@ body {
 
 /* posiciones iniciales */
 .blob1 {
-  top: -15%;
-  left: -10%;
-  background: radial-gradient(circle, #fa8338 0%, #d22a1b 90%);
+  top: 0%;
+  left: -125%;
+  width: 3000px;
+  height: 3000px;
+  background: radial-gradient(circle, #ffa200 40%, #ff0000 50%, #00000000 100% );
 }
 
 .blob2 {
-  bottom: -10%;
-  right: -5%;
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(circle, #d22a1b 0%, #58100A 90%);
+  bottom: 30%;
+  right: -65%;
+  width: 2000px;
+  height: 2000px;
+  background: radial-gradient(circle, #ffa200 40%, #ff0000 50%, #00000000 100% );
+
 }
 
-.blob3 {
-  top: 45%;
-  left: 25%;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, #ffb37c 0%, #8b2b13 90%);
-  opacity: 0.5;
-}
+
 
 /* noise overlay */
 .noise {
@@ -244,10 +240,10 @@ main .hero {
   font-size: 18rem;
   font-weight: 700;
   letter-spacing: 1rem;
-  -webkit-text-stroke: 2px rgba(255, 38, 0, 0.6);
+  -webkit-text-stroke: 3px rgb(255, 0, 0);
   color: transparent;
   line-height: 0.9;
-  mix-blend-mode: color-dodge;
+  mix-blend-mode: overlay;
   pointer-events: none;
 }
 
