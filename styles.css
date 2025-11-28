@@ -22,11 +22,19 @@ body {
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
-  background: #000;
+  background-image: url("img/FONDO STUDIO41.png");
+  background-size: cover;
 }
 
-/* blobs iguales, pero animación más suave para no distraer */
-.blob {
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(18px);
+  background: rgba(0,0,0,0.15); /* opcional pero recomendado */
+}
+
+/* .blob {
   position: absolute;
   width: 450px;
   height: 450px;
@@ -37,7 +45,6 @@ body {
   animation: blobFloat 18s ease-in-out infinite alternate;
 }
 
-/* posiciones iniciales */
 .blob1 {
   top: 0%;
   left: -125%;
@@ -53,7 +60,7 @@ body {
   height: 2000px;
   background: radial-gradient(circle, #ffa200 40%, #ff0000 50%, #00000000 100% );
 
-}
+} */
 
 
 
@@ -180,6 +187,7 @@ body {
   color: white;
   text-decoration: none;
   transition: 0.3s;
+  z-index: 999;
 }
 
 .btnContacto:hover {
