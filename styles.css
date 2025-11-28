@@ -540,7 +540,6 @@ main .hero {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
 }
 
 .btnEliminarServicio:hover {
