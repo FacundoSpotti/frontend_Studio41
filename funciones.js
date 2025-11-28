@@ -29,8 +29,6 @@ async function cargarServicios() {
 
     const res = await fetch(base_url+"/servicios");
     const servicios = await res.json();
-
-    console.log("SERVICIOS:", servicios);
     return servicios;
 }
 
