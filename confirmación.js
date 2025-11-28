@@ -2,34 +2,31 @@ async function mostrarServicios() {
 
     try {
 
-    const contenedorServicios = document.querySelector('#servicios');
-
+    let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
+    const contenedorServicios = document.querySelector('#servicio-carrito');
     const servicios = await cargarServicios();
-
     let cadaServicio = '';
 
-    servicios.forEach(servicio => {
-
-        console.log("SERVICIO:", servicio);
+    carrito.forEach(id => {
 
         cadaServicio +=
         
                 `<article class="project project--small desactivado">
-                        <div class="project_img ${servicio.id}">
+                        <div class="project_img ${servicios[id-1].id}">
                         
                         <style>
-                            .${servicio.id} {
-                                background-image: url(${servicio.image});
+                            .${servicios[id-1].id} {
+                                background-image: url(${servicios[id-1].image});
                             }
                         </style>
                         
                         </div>
 
                         <div class="project_info project_info--small">
-                            <span class="project_label">${servicio.plan}</span>
-                            <span class="project_label">${servicio.titulo}</span>
-                            <span class="project_label">${servicio.precio}${servicio.moneda}</span>
-                            <p>${servicio.descripcion}</p>
+                            <span class="project_label">${servicios[id-1].plan}</span>
+                            <span class="project_label">${servicios[id-1].titulo}</span>
+                            <span class="project_label">${servicios[id-1].precio}${servicios[id-1].moneda}</span>
+                            <p>${servicios[id-1].descripcion}</p>
                         </div>
 
                 </article>`
