@@ -1,19 +1,21 @@
 const base_url = "https://backend-studio41.onrender.com";
 const formulario = document.querySelector("form");
 
-/* -------- Cargar servicios -------- */
+////////////////////////////////////CARGAR SERVICIOS////////////////////////////////////
 
 async function cargarServicios() {
     const res = await fetch(base_url + "/servicios");
     return await res.json();
 }
 
+////////////////////////////////////MOSTRAR SERVICIOS////////////////////////////////////
+
 async function mostrarServicios() {
 
     let carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
 
     if (carrito.length === 0) {
-        window.location.href = "servicios.html";
+        window.location.href = "servicios.html"; //Si el carrito está vacío, me manda a servicios.
         return;
     }
 
@@ -21,12 +23,12 @@ async function mostrarServicios() {
     const servicios = await cargarServicios();
     let contenedorServicios = "";
 
-    carrito.forEach((id) => {
-        const servicio = servicios.find(servicio => servicio.id == id);
+    carrito.forEach((id) => { //recorro el array carrito
+        const servicio = servicios.find(servicio => servicio.id == id); //busca dentro del array de servicios (que viene del backend) el objeto que tenga ese ID.
         if (!servicio) return;
 
         contenedorServicios += `
-        <article class="project project--small" data-id="${id}">
+        <article class="project project--small" servicio-id="${id}">
 
             <button class="btnEliminarServicio">✕</button>
 
@@ -45,18 +47,18 @@ async function mostrarServicios() {
 
   document.querySelectorAll(".btnEliminarServicio").forEach(btn => {
     btn.addEventListener("click", function () {
-      const card = this.parentElement;
-      const id = card.getAttribute("data-id");
+      const card = this.parentElement; //me sirve para a partir del botón, llegar a la tarjeta completa. Info extraída de: https://www.w3schools.com/jsref/prop_node_parentelement.asp
+      const id = card.getAttribute("servicio-id"); //por medio de getAttribute, obtengo el ID del servicio que quiero eliminar.
 
     for (let i = 0; i < carrito.length; i++) {
-        if (carrito[i] == id) {
+      if (carrito[i] == id) {
         carrito.splice(i, 1);
         break;
+      }
     }
-}
       localStorage.setItem("carritoServicios", JSON.stringify(carrito));
 
-      card.remove();
+      card.remove(); //.remove elimina un elemento del documento. Info extraída de: https://www.w3schools.com/jsref/met_element_remove.asp
 
       if (carrito.length === 0) {
         window.location.href = "servicios.html";
@@ -65,8 +67,7 @@ async function mostrarServicios() {
   });
 }
 
-
-/* -------- Enviar solicitud -------- */
+////////////////////////////////////GUARDAR SOLICITUD////////////////////////////////////
 
 async function guardarSolicitud(data) {
   const res = await fetch(base_url + "/solicitudes", {
@@ -80,44 +81,43 @@ async function guardarSolicitud(data) {
   return await res.json();
 }
 
+////////////////////////////////////ENVIAR FORMULARIO////////////////////////////////////
+
 async function enviarFormulario(e) {
-    e.preventDefault();
+  e.preventDefault(); //Con esto evito que el formulario se envíe automáticamente y recargue la página.
 
-    const carrito = JSON.parse(localStorage.getItem("carritoServicios")) || [];
+  const carrito = JSON.parse(localStorage.getItem("carritoServicios")) || []; //Obtengo el carrito desde el localStorage.
 
-    if (carrito.length === 0) {
-        alert("No seleccionaste servicios.");
-        return;
-    }
+  if (carrito.length === 0) {
+      alert("No seleccionaste servicios.");
+      return;
+  }
 
-    const solicitudData = {
-        nombre: nombre.value.trim(),
-        email: email.value.trim(),
-        ubicacion: ubicacion.value.trim(),
-        comentario: comentario.value.trim(),
-        presupuesto: Number(presupuesto.value),
-        numero: 0,
-        servicios: carrito.map(Number)
-    };
+  const solicitudData = {
+      nombre: nombre.value.trim(),
+      email: email.value.trim(),
+      ubicacion: ubicacion.value.trim(),
+      comentario: comentario.value.trim(),
+      presupuesto: Number(presupuesto.value),
+      numero: 0,
+      servicios: carrito.map(Number)
+  };
 
-    if (!solicitudData.nombre || !solicitudData.email || !solicitudData.presupuesto) {
-        alert("Completa todos los campos.");
-        return;
-    }
+  if (!solicitudData.nombre || !solicitudData.email || !solicitudData.presupuesto){
+    alert("Completa todos los campos.");
+    return;
+  }
 
-    try {
-        await guardarSolicitud(solicitudData);
-        alert("Solicitud enviada con éxito!");
-        localStorage.removeItem("carritoServicios");
-        formulario.reset();
-        window.location.href = "index.html";
-    } catch {
-        alert("Error enviando solicitud.");
-    }
+  try {
+    await guardarSolicitud(solicitudData);
+    alert("Solicitud enviada con éxito!");
+    localStorage.removeItem("carritoServicios");
+    formulario.reset();
+    window.location.href = "index.html";
+  }catch{
+    alert("Error enviando solicitud.");
+  }
 }
-
-
-/* -------- Inicializar -------- */
 
 mostrarServicios();
 formulario.addEventListener("submit", enviarFormulario);

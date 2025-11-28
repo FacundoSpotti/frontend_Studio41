@@ -22,76 +22,65 @@ async function mostrarServicios() {
 
     try {
 
-    const contenedorServicios = document.querySelector('#servicios');
-    const servicios = await cargarServicios();
+        const contenedorServicios = document.querySelector('#servicios');
+        const servicios = await cargarServicios();
 
-    let cadaServicio = '';
+        let cadaServicio = '';
 
-    servicios.forEach(servicio => {
+        servicios.forEach(servicio => {
 
-        cadaServicio +=
-        
+            cadaServicio +=
                 `<article id=${servicio.id} class="project project--small desactivado">
-
                         <div class="project_img ${servicio.id} ${servicio.ref}">
-                        
-                        <style>
-                            .${servicio.ref} {
-                                background-image: url(${servicio.image});
-                                background-size: cover;
-                                background-position: center; 
-                                background-repeat: no-repeat;
-
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                color: white;
-                                font-weight: bold;
-                                text-align: center;
-                            }
-                        </style>
+                            <style>
+                                .${servicio.ref} {
+                                    background-image: url(${servicio.image});
+                                    background-size: cover;
+                                    background-position: center; 
+                                    background-repeat: no-repeat;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    color: white;
+                                    font-weight: bold;
+                                    text-align: center;
+                                }
+                            </style>
 
                             <h2>${servicio.titulo} | ${servicio.categoria}</h2>
-                        
                         </div>
 
                         <div class="project_info project_info--small">
                             <span class="project_label">${servicio.plan}</span>
                             <span class="project_label">${servicio.precio}${servicio.moneda}</span>
                         </div>
-
-                </article>`
-                    
+                </article>`  
         });
 
-    const contenidoServicios = `
+        const contenidoServicios = `
+            
+            <div class="project-grid">${cadaServicio}</div>`;
 
-            <div class="project-grid">
+        cargaDinamica(contenedorServicios, contenidoServicios);
 
-                ${cadaServicio}
+        const cajas = document.querySelectorAll('.project');
+        const num_carrito = document.querySelector('.num_carrito');
 
-            </div>`;
+        num_carrito.innerHTML = 0;
 
-    cargaDinamica(contenedorServicios, contenidoServicios);
+        cajas.forEach(caja => {
+            caja.addEventListener("click", function () {
+                this.classList.toggle("activado"); //alterno la clase activado
+                this.classList.toggle("desactivado");
 
-    const cajas = document.querySelectorAll('.project');
-    const num_carrito = document.querySelector('.num_carrito');
-
-    num_carrito.innerHTML = 0;
-
-    cajas.forEach(caja => {
-        caja.addEventListener("click", function () {
-            this.classList.toggle("activado");
-            this.classList.toggle("desactivado");
-
-            const seleccionados = document.querySelectorAll(".activado").length;
-            num_carrito.textContent = seleccionados;
+                const seleccionados = document.querySelectorAll(".activado").length;
+                num_carrito.innerHTML = seleccionados;
+            });
         });
-    });
 
-    } catch (error) {
-        console.error("Error al mostrar servicios:", error);
-    }
+        } catch (error) {
+            console.error("Error al mostrar servicios:", error);
+        }
 }
 
 mostrarServicios();

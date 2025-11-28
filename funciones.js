@@ -1,6 +1,7 @@
 console.log("JS funcionando")
 
-/* BOTONES e INPUTS */
+////////////////////////////////////BOTONES E INPUTS////////////////////////////////////
+
 const btnCerrar = document.getElementById("btnCerrar");
 const btnCrear = document.getElementById("btnCrear");
 const btnActualizar = document.getElementById("btnActualizar");
@@ -17,13 +18,14 @@ const presupuestoInput = document.getElementById("presupuesto");
 
 const base_url = "https://backend-studio41.onrender.com";
 
+////////////////////////////////////CARGA DINÁMICA////////////////////////////////////
+
 function cargaDinamica(contenedor, contenido) {
-
     contenedor.innerHTML = contenido;
-
 }
 
-/*OBTENER SERVICIOS*/
+///////////////////////////////////OBTENER SERVICIOS////////////////////////////////////
+
 
 async function cargarServicios() {
 
@@ -34,7 +36,7 @@ async function cargarServicios() {
 
 cargarServicios();
 
-/*FUNCIONES ASINCRONICAS*/
+/////////////////////////////////PETICIONES CRUD////////////////////////////////////
 
 async function crearPeticion(peticionData) {
     try {
@@ -46,7 +48,7 @@ async function crearPeticion(peticionData) {
             body: JSON.stringify(peticionData),
         });
 
-        if (!response.ok) {
+        if (!response.ok) { //.ok es una propiedad del objeto Response que devuelve fetch()
             throw new Error("Error al crear petición: " + response.status);
         }
 
@@ -95,9 +97,9 @@ async function guardarPeticion(data) {
 let ultimaPeticion = null;
 
 async function enviarFormulario(e) {
-    e.preventDefault();
+    e.preventDefault(); 
 
-    const presupuestoValor = Number(presupuestoInput.value);
+    const presupuestoValor = Number(presupuestoInput.value); // Convertir a número
 
     const peticionData = {
         nombre: nombreInput.value.trim(),
@@ -118,10 +120,8 @@ async function enviarFormulario(e) {
         ultimaPeticion = resultado;
         mostrarModalConfirmacion(resultado);
 
-        // limpia inputs
-        formulario.querySelectorAll("input").forEach(input => (input.value = ""));
+        formulario.querySelectorAll("input").forEach(input => (input.value = "")); // limpio inputs
         comentarioTextArea.value = "";
-
     }
 }
 
@@ -166,17 +166,15 @@ function mostrarModalConfirmacion(peticion) {
         <p><strong>Comentario:</strong> ${peticion.comentario || "Sin comentario"}</p>
     `;
 
-    modal.classList.add("active");
-    overlay.classList.add("active");
+    modal.classList.add("active"); //agrego la clase active para mostrar la modal
+    overlay.classList.add("active"); //agrego la clase active para mostrar el overlay
 
-    // Guardamos el ID en localStorage (para editar luego)
-    localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id);
+    localStorage.setItem("ultimaPeticionId", peticion._id || peticion.id); // Guardamos el ID en localStorage
     ultimaPeticion = peticion;
-
 }
 
 function cerrarModal() {
-    document.getElementById("modalConfirmacion").classList.remove("active");
+    document.getElementById("modalConfirmacion").classList.remove("active"); //quito la clase active para ocultar la modal
     document.getElementById("modalOverlay").classList.remove("active");
 }
 
@@ -227,6 +225,9 @@ async function guardarEdicion() {
     }
 }
 
+//////////////////////////////////////////ELIMINAR PETICION///////////////////////////////
+
+
 async function eliminarPeticion(id) {
     try {
         const response = await fetch(`${base_url}/peticiones/${id}`, {
@@ -257,12 +258,12 @@ async function eliminarPeticionConfirmada() {
 
     cerrarModal();
     
-    // Restaurar botones
     btnCrear.style.display = "inline-block";
     btnActualizar.style.display = "none";
 }
 
-/* EVENTOS (se agregan solo una vez) */
+//////////////////////////////////////////EVENTOS///////////////////////////////
+
 formulario.addEventListener("submit", enviarFormulario);
 btnActualizar.addEventListener("click", guardarEdicion);
 btnEditar.addEventListener("click", () => cargarDatosParaEdicion(ultimaPeticion));
