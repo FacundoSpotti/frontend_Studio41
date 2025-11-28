@@ -179,4 +179,5 @@ const contenidoFormulario = `
 
 cargaDinamica(contenedorPortfolio, contenidoPortfolio);
 cargaDinamica(contenedorIntegrantes, contenidoIntegrantes);
+cargaDinamica(contenedorModal, contenidoModal);
 cargaDinamica(contenedorModal, contenidoFormulario);

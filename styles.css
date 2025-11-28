@@ -434,11 +434,6 @@ main .hero {
   cursor: pointer;
 }
 
-.btn--primary:hover {
-  background: #ffa200;
-  transition: 0.5s;
-}
-
 .contact_logo img {
   width: 200px;
   display: block;
@@ -551,12 +546,6 @@ main .hero {
 .hero_servicios{
   height: 20vh;
   text-align: center;
-}
-
-.serSel{
-  text-align: center;
-  font-size: 1.5rem;
-  padding: 1rem;
 }
 
 
