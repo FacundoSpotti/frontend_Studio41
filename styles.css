@@ -106,6 +106,7 @@ body {
 .solicitud{
 
   position: fixed;
+  z-index: 999;
   bottom: 5rem;
   right: 5rem;
 
@@ -268,6 +269,7 @@ main .hero {
   border: 1px solid rgba(255,255,255,0.1);
   overflow: hidden;
   margin-bottom: 40px;
+  position: relative;
 }
 
 .project_img {
@@ -522,6 +524,28 @@ main .hero {
 .modal-close:hover {
   color: #f97316;
   transform: scale(1.2);
+}
+
+
+.btnEliminarServicio {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  color: white;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.btnEliminarServicio:hover {
+  color: #ffa200;
+  transform: scale(1.1);
 }
 
 
