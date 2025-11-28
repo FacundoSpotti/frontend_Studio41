@@ -227,6 +227,23 @@ async function guardarEdicion() {
     }
 }
 
+async function eliminarPeticion(id) {
+    try {
+        const response = await fetch(`${base_url}/peticiones/${id}`, {
+            method: "DELETE"
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar petición: " + response.status);
+        }
+
+        return true;
+    } catch (error) {
+        console.error("Error eliminando:", error);
+        return false;
+    }
+}
+
 async function eliminarPeticionConfirmada() {
     const id = localStorage.getItem("ultimaPeticionId");
 
