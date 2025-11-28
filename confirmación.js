@@ -14,12 +14,6 @@ async function mostrarServicios() {
                 `<article class="project project--small desactivado">
                         <div class="project_img ${servicios[id-1].id}">
                         
-                        <style>
-                            .${servicios[id-1].id} {
-                                background-image: url(${servicios[id-1].image});
-                            }
-                        </style>
-                        
                         </div>
 
                         <div class="project_info project_info--small">
@@ -48,6 +42,7 @@ async function mostrarServicios() {
         console.error("Error al mostrar servicios:", error);
 
     }
+
 }
 
 mostrarServicios();

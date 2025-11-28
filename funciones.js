@@ -15,9 +15,6 @@ const ubicacionInput = document.getElementById("ubicacion");
 const comentarioTextArea = document.getElementById("comentario");
 const presupuestoInput = document.getElementById("presupuesto");
 
-
-
-
 const base_url = "https://backend-studio41.onrender.com";
 
 function cargaDinamica(contenedor, contenido) {
@@ -38,7 +35,6 @@ async function cargarServicios() {
 }
 
 cargarServicios();
-
 
 /*FUNCIONES ASINCRONICAS*/
 
