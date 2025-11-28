@@ -246,7 +246,7 @@ main .hero {
   font-size: 18rem;
   font-weight: 700;
   letter-spacing: 1rem;
-  -webkit-text-stroke: 3px rgb(255, 0, 0);
+  -webkit-text-stroke: 3px rgb(255, 39, 39);
   color: transparent;
   line-height: 0.9;
   mix-blend-mode: overlay;
